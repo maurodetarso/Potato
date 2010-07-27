@@ -1,21 +1,15 @@
-package
+package potato.modules.dependencies
 {	
-	import flash.display.Sprite;
-	import potato.modules.dependencies.Dependencies;
+    import potato.modules.dependencies.Dependencies;
 	import potato.core.config.ObjectConfig;
-	import flash.events.Event;
+	import flash.events.*;
+	import org.flexunit.Assert;
+	import org.flexunit.async.Async;
 	
-	public class dependencies extends Sprite
+	public class DependenciesTest
 	{
 
-		public function dependencies()
-		{
-			dependenciesFromConfig();
-			dependenciesFromManuallyAdding();
-			dependenciesFromConfigAndAdd();
-			dependenciesEmpty();
-		}
-		
+		[Test(async)]
 		public function dependenciesFromConfig():void
 		{
 			var cfg:ObjectConfig = new ObjectConfig([
@@ -28,19 +22,27 @@ package
 			cfg.interpolationValues = {basePath: "."};
 			
 			var dep:Dependencies = new Dependencies(cfg);
-			dep.addEventListener(Event.COMPLETE, onDepsLoadComplete);
+			Async.proceedOnEvent( this, dep, Event.COMPLETE );
+			Async.failOnEvent( this, dep, IOErrorEvent.IO_ERROR );
+			Async.failOnEvent( this, dep, ErrorEvent.ERROR );
 			dep.load();
+			
+			
 		}
 		
+		[Test(async)]
 		public function dependenciesFromManuallyAdding():void
 		{
 			var dep:Dependencies = new Dependencies();
-			dep.addEventListener(Event.COMPLETE, onDepsLoadComplete);
+			Async.proceedOnEvent( this, dep, Event.COMPLETE );
+			Async.failOnEvent( this, dep, IOErrorEvent.IO_ERROR );
+			Async.failOnEvent( this, dep, ErrorEvent.ERROR );
 			dep.addItem("./dummy.swf");
 			dep.addItem("./dummy.swf", {id: "dummy2"});
 			dep.load();
 		}
 		
+		[Test(async)]
 		public function dependenciesFromConfigAndAdd():void
 		{
 			var cfg:ObjectConfig = new ObjectConfig([
@@ -52,23 +54,28 @@ package
 			]);
 			cfg.interpolationValues = {basePath: "."};
 			
-			var dep:Dependencies = new Dependencies(cfg);
-			dep.addEventListener(Event.COMPLETE, onDepsLoadComplete);
+			var dep:Dependencies = new Dependencies(cfg);;
+			Async.proceedOnEvent( this, dep, Event.COMPLETE );
+			Async.failOnEvent( this, dep, IOErrorEvent.IO_ERROR );
+			Async.failOnEvent( this, dep, ErrorEvent.ERROR );
 			dep.addItem("./dummy.swf");
 			dep.addItem("./dummy.swf", {id: "dummy2"});
 			dep.load();
 		}
 		
+		[Test(async)]
 		public function dependenciesEmpty():void
 		{
 			var dep:Dependencies = new Dependencies();
-			dep.addEventListener(Event.COMPLETE, onDepsLoadComplete);
+			Async.proceedOnEvent( this, dep, Event.COMPLETE );
+			Async.failOnEvent( this, dep, IOErrorEvent.IO_ERROR );
+			Async.failOnEvent( this, dep, ErrorEvent.ERROR );
 			dep.load();
 		}
 		
 		public function onDepsLoadComplete(e:Event):void
 		{
-			trace("tester::onDepsLoadComplete()", "COMPLETE: ", e.target);
+			Assert.assertEquals(1,1);
 		}
 
 	}
