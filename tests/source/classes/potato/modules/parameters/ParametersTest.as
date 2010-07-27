@@ -1,24 +1,12 @@
-package
+package potato.modules.parameters
 {	
+    import org.flexunit.Assert;
 	import flash.display.Sprite;
 	import potato.modules.parameters.Parameters;
 	import potato.core.config.ObjectConfig;
-	public class parameters extends Sprite
+	public class ParametersTest
 	{
 
-		public function parameters()
-		{
-			undefinedParamter();
-			nullParameter();
-			parameterInjecting();
-			parameterSetting();
-			parameterDefaults();
-			parametersOverrideOrder();
-			parameterInterpolation();
-			defaultsInterpolation();
-			inheritance();
-		}
-		
 		private var p:Parameters;
 		public function get parameter():Parameters
 		{
@@ -45,38 +33,55 @@ package
 			return p;
 		}
 		
+        [Test]
 		public function undefinedParamter():void
 		{
-			trace(parameter.sbrubles == undefined);
+			Assert.assertEquals(parameter.sbrubles, undefined);
 		}
+
+        [Test]
 		public function nullParameter():void
 		{
-			trace(parameter.name4 == null);
+			Assert.assertEquals(parameter.name4, null);
 		}
+
+        [Test]
 		public function parameterInjecting():void
 		{
-			trace(parameter.name == "value");
+			Assert.assertEquals(parameter.name, "value");
 		}
+
+        [Test]
 		public function parameterSetting():void
 		{
-			trace(parameter.name3 == "changed value");
+			Assert.assertEquals(parameter.name3, "changed value");
 		}
+
+        [Test]
 		public function parameterDefaults():void
 		{
-			trace(parameter.defaultName == "default");
+			Assert.assertEquals(parameter.defaultName, "default");
 		}
+
+        [Test]
 		public function parametersOverrideOrder():void
 		{
-			trace(parameter.name2 == "value2");
+			Assert.assertEquals(parameter.name2, "value2");
 		}
+
+        [Test]
 		public function parameterInterpolation():void
 		{
-			trace(parameter.name5 == parameter.name)
+			Assert.assertEquals(parameter.name5, parameter.name)
 		}
+
+        [Test]
 		public function defaultsInterpolation():void
 		{
-			trace(parameter.interpolated == parameter.name2);
+			Assert.assertEquals(parameter.interpolated, parameter.name2);
 		}
+
+        [Test]
 		public function inheritance():void
 		{
 			var inh:Parameters = new Parameters(new ObjectConfig({
@@ -84,7 +89,7 @@ package
 			}));
 			parameter.inherit = inh;
 			
-			trace(parameter.inheritedProp == "yep");
+			Assert.assertEquals(parameter.inheritedProp, "yep");
 			
 		}
 
