@@ -127,10 +127,10 @@ package potato.modules.navigation
         }
 
         public function addView(viewOrId:Object):void{
-            nav.root.addView(viewOrId);
+            nav.root.nav.addView(viewOrId);
         }
         public function removeView(viewOrId:Object):void{
-            nav.root.removeView(viewOrId);
+            nav.root.nav.removeView(viewOrId);
         }
         public function changeView(viewOrId:Object):void{
             nav.changeView(viewOrId);
