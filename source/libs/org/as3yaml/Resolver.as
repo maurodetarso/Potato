@@ -111,13 +111,14 @@ public class Resolver {
     public function descendResolver(currentNode : Node, currentIndex : Object) : void {
         var exactPaths : Dictionary = new Dictionary();
         var prefixPaths : Array = [];
+        var path:Array;
         if(null != currentNode) {
             var depth : int = resolverPrefixPaths.length;
             var paths: Array = resolverPrefixPaths[0] as Array;
             var pathsLen: int = paths.length;
             for(var xi:int=0; xi < pathsLen; xi++) {
                 var obj : Array = paths[xi] as Array;
-                var path : Array = obj[0] as Array;
+                path = obj[0] as Array;
                 if(checkResolverPrefix(depth,path, obj[1],currentNode,currentIndex)) {
                     if(path.size() > depth) {
                         prefixPaths.push([path,obj[1]]);
@@ -132,7 +133,7 @@ public class Resolver {
         } else {
             for(var keyObj : Object in yamlPathResolvers) {
                 var key : Array = keyObj as Array;
-                var path : Array = key[0] as Array;
+                path = key[0] as Array;
                 var kind : Class = key[1] as Class;
                 if(null == path) {
                     exactPaths[kind] = yamlPathResolvers[key];

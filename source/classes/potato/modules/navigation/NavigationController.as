@@ -3,6 +3,7 @@ package potato.modules.navigation
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	import potato.modules.navigation.events.NavigationEvent;
+	import potato.modules.navigation.View;
 	import potato.core.config.IConfig;
 	import potato.core.config.ObjectConfig;
 

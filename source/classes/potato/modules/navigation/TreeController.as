@@ -4,6 +4,7 @@ package potato.modules.navigation {
     import flash.events.*;
     import flash.utils.*;
 	import potato.core.config.*;
+    import potato.modules.navigation.View;
     
     public class TreeController extends EventDispatcher{
 

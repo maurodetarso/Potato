@@ -1,14 +1,7 @@
 package potato.modules.navigation
 {
-	import potato.core.config.JSONConfig;
-	import potato.modules.parameters.Parameters;
-	import potato.modules.dependencies.Dependencies;
+	import potato.core.config.YAMLConfig;
     import potato.modules.tracking.Tracker;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import potato.modules.i18n.I18n;
-	import flash.events.Event;
-	import potato.core.config.ObjectConfig;
 
 	/**
 	 * Description
@@ -27,7 +20,7 @@ package potato.modules.navigation
 			super();
 			
             //Setting default parameters
-			parameters.defaultExtension   = "yaml"
+			parameters.defaults.defaultExtension   = "yaml"
 
             //Initialize tracking
             Tracker.instance.config = new YAMLConfig(parameters.tagsFile);

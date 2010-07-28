@@ -2,6 +2,7 @@ package potato.modules.navigation
 {
 	import potato.core.config.JSONConfig;
 	import potato.modules.parameters.Parameters;
+    import potato.modules.navigation.View;
 	import potato.modules.dependencies.Dependencies;
     import potato.modules.tracking.Tracker;
 	import flash.display.StageAlign;
@@ -53,12 +54,6 @@ package potato.modules.navigation
                 else
 				    parameters[p] = loaderInfo.parameters[p];
             }
-
-            //Initialize tracking
-            Tracker.instance.config = new JSONConfig(parameters.tagsFile);
-			
-			//Boot
-			startup(new JSONConfig(parameters.configFile));
 		}
 	
 	}

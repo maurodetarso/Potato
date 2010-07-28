@@ -1,6 +1,7 @@
 package potato.modules.navigation
 {
 	import potato.core.config.JSONConfig;
+    import potato.modules.tracking.Tracker;
 
 	/**
 	 * Description
@@ -19,7 +20,7 @@ package potato.modules.navigation
 			super();
 			
             //Setting default parameters
-			parameters.defaultExtension   = "json"
+			parameters.defaults.defaultExtension   = "json"
 
             //Initialize tracking
             Tracker.instance.config = new JSONConfig(parameters.tagsFile);

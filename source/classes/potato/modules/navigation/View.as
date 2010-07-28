@@ -11,6 +11,8 @@ package potato.modules.navigation
 	import potato.core.IVisible;
 	import potato.core.config.ObjectConfig;
 	import potato.modules.navigation.ViewLoader;
+	import potato.modules.navigation.ViewMessenger;
+	import potato.modules.navigation.NavigationController;
 	import potato.modules.navigation.events.NavigationEvent;
 	import flash.utils.getQualifiedClassName;
 
