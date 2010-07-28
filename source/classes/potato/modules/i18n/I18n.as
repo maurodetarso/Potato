@@ -37,6 +37,12 @@ package potato.modules.i18n {
 		 * @private
 		 */
 		private static var _instance:I18n;
+
+        /**
+         * Class used to parse configs
+         * */
+        public static var parser:Class;
+
 		/**
 		 * Singleton
 		 */

@@ -2,6 +2,7 @@ package potato.modules.navigation
 {
 	import potato.core.config.JSONConfig;
     import potato.modules.tracking.Tracker;
+	import potato.modules.i18n.I18n;
 
 	/**
 	 * Description
@@ -24,6 +25,9 @@ package potato.modules.navigation
 
             //Initialize tracking
             Tracker.instance.config = new JSONConfig(parameters.tagsFile);
+
+            //I18n type
+            I18n.parser = JSONConfig;
 			
 			//Boot
 			startup(new JSONConfig(parameters.configFile));

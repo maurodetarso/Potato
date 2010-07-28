@@ -12,7 +12,6 @@ package potato.modules.navigation
 	import ReferenceError;
 	import potato.core.IDisposable;
 	import potato.modules.navigation.events.NavigationEvent;
-	import potato.core.config.JSONConfig;
 
 	/**
 	 * Loads the view and notifies progress or completion
@@ -88,7 +87,7 @@ package potato.modules.navigation
 			{
 				//Check if the module was included
 				with(getDefinitionByName("potato.modules.i18n.I18n")){
-					inject(new JSONConfig(view.config.getProperty("localeFile")));
+					inject(new parser(view.config.getProperty("localeFile")));
 					instance.addEventListener(Event.COMPLETE, continueViewLoading, false, 0, true);
 				}
 			} else {
@@ -127,7 +126,7 @@ package potato.modules.navigation
 			{
 				//Check if the module was included
 				with(getDefinitionByName("potato.modules.i18n.I18n")){
-					inject(new JSONConfig(_viewConfig.getProperty("localeFile")));
+					inject(new parser(_viewConfig.getProperty("localeFile")));
 					instance.addEventListener(Event.COMPLETE, continueConfigLoading);
 				}
 			} else {
