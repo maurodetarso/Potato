@@ -10,23 +10,6 @@ import potato.core.dsl.ConditionalParser;
 
 /**
  * 
- * Conditional operators:
- * 	!= >= > == <= < ~=
- * 
- * Variables type:
- * 	Number, String, null, RegEx, Object
- * 
- * Conditionals example:
- * 'age': 35, 
- * 'site': {
- *     'if': {        
- *         "age >= 30": 'http://age.com',
- *         "age >= 18": 'http://anurl.com',
- * 		   "otherParam == 'stringValue'": "http://anotherurl.com",
- *         "else": "http://defaulturl.com"
- *     } 
- * }
- * 
  * @langversion ActionScript 3
  * @playerversion Flash 9.0.0
  * 

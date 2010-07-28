@@ -18,7 +18,7 @@ package potato.core.config
 	public class ObjectConfig extends EventDispatcher implements IConfig
 	{
 		// Source object
-		protected var _config:Object;
+		internal var _config:Object;
 		//Interpolation values
 		protected var _interpolationValues:Object;
 		//Conditional parser

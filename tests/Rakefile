@@ -16,8 +16,8 @@
         #Source files
         :source_path => [
             "source/classes",
-            "../libs",
-            "../src"
+            "../source/libs",
+            "../source/classes"
         ],
         #
         #Exclude classes

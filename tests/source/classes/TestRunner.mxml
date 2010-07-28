@@ -10,6 +10,7 @@
 			import org.flexunit.listeners.UIListener;
 			import org.flexunit.internals.TraceListener;
 			import org.flexunit.runner.FlexUnitCore;
+            import potato.core.config.YAMLConfigTest;
             import potato.modules.parameters.ParametersTest;
             import potato.modules.dependencies.DependenciesTest;
 			
@@ -27,7 +28,7 @@
 				
 				//This run statements executes the unit tests for the FlexUnit4 framework 
 				//the Hamcrest matchers and some of the tests shown in the FlexUnit in 360 seconds blog post
-				core.run( ParametersTest, DependenciesTest );
+				core.run( ParametersTest, DependenciesTest, YAMLConfigTest );
 				
 			}
 		]]>
