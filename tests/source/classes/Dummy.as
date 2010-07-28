@@ -7,7 +7,7 @@ package
 		public function Dummy()
 		{
 			super();
-			trace("Dummy::Dummy()", "DUMMY loaded");
+			//trace("Dummy::Dummy()", "DUMMY loaded");
 		}
 
 	}
