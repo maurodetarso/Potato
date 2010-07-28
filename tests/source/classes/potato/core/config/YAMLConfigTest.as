@@ -29,7 +29,7 @@ package potato.core.config
 
             var asyncHandler:Function = Async.asyncHandler(this, function(e:Event, o:*):void{
                 config.removeEventListener(Event.INIT, asyncHandler);
-                Assert.assertEquals(config.getProperty("str"), "str");
+                Assert.assertEquals(config.getProperty("str"), "my fançy and complex StRiNg!");
             }, 5000, null, handleTimeout);
 
             var config:YAMLConfig = new YAMLConfig(YAML_PATH);
