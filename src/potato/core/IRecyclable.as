@@ -9,7 +9,7 @@ package potato.core
 	 * @author Fernando França
 	 * @since  26.07.2010
 	 */
-	public interface IRecyclable extends IDisposeable
+	public interface IRecyclable extends IDisposable
 	{
 		function recycle():void;
 	}
