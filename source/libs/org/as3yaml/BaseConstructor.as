@@ -225,8 +225,8 @@ public class BaseConstructor implements Constructor {
             merge.push(mapping);
             mapping = new Dictionary();
             for each(var item : Dictionary in merge) {
-                for (var key: Object in item)
-                	mapping[key] = item[key];
+                for (var key_: Object in item)
+                	mapping[key_] = item[key_];
             }
         }
         return mapping;

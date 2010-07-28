@@ -71,17 +71,21 @@ public class Composer {
     private static var TRU : Array = [true];
 
     public function composeNode(parent : Node, index : Object) : Node {
+		var anchor:String;
+		var tag:String;
 		var event : Event = parser.peekEvent();
+		
+		
         if(event is AliasEvent) {
             var eve : AliasEvent = parser.getEvent() as AliasEvent;
-            var anchor : String = eve.getAnchor();
+            anchor= eve.getAnchor();
             if(!anchors[anchor]) {
                 
                 throw new ComposerException(null,"found undefined alias " + anchor,null);
             }
             return anchors[anchor] as Node;
         }
-        var anchor : String = null;
+        anchor= null;
         if(event is NodeEvent) {
             anchor = NodeEvent(event).getAnchor();
         }
@@ -94,7 +98,7 @@ public class Composer {
         var node : Node = null;
         if(event is ScalarEvent) {
             var ev : ScalarEvent = parser.getEvent() as ScalarEvent;
-            var tag : String = ev.getTag();
+            tag= ev.getTag();
             if(tag == null || tag == ("!")) {
                 tag = resolver.resolve(ScalarNode,ev.getValue(),ev.getImplicit());
             }
@@ -104,7 +108,7 @@ public class Composer {
             }
         } else if(event is SequenceStartEvent) {
             var start : SequenceStartEvent = parser.getEvent() as SequenceStartEvent;
-            var tag : String = start.getTag();
+            tag= start.getTag();
             if(tag == null || tag == ("!")) {
                 tag = resolver.resolve(SequenceNode,null,start.getImplicit()  ? TRU : FALS);
             }
@@ -120,7 +124,7 @@ public class Composer {
             parser.getEvent();
         } else if(event is MappingStartEvent) {
             var st : MappingStartEvent = parser.getEvent() as MappingStartEvent;
-            var tag : String = st.getTag();
+            tag= st.getTag();
             if(tag == null || tag == ("!")) {
                 tag = resolver.resolve(MappingNode,null, st.getImplicit() ? TRU : FALS);
             }

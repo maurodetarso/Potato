@@ -100,7 +100,13 @@ public class Parser {
 
 	
    public function produce(eventId: int) : Event {
-   	
+   		var tok:Token;
+		var directives:Array;
+		var curr:Token;
+		var last:Token;
+		var anchor:String;
+		var impl:Boolean;
+
    		switch (eventId)
    		{
 	        case P_STREAM:
@@ -119,7 +125,7 @@ public class Parser {
 	            return STREAM_END;
 	            
 	        case P_IMPLICIT_DOCUMENT:
-	            var curr : Token = scanner.peekToken();
+	            curr = scanner.peekToken();
 	            if(!(curr is DirectiveToken || curr is DocumentStartToken || curr is StreamEndToken)) {
 	                parseStack.unshift(P_DOCUMENT_END);
 	                parseStack.unshift(P_BLOCK_NODE);
@@ -137,8 +143,8 @@ public class Parser {
 	            return null;
 	       
 	       case P_DOCUMENT_START:
-	            var tok : Token = scanner.peekToken();
-	            var directives : Array = processDirectives(scanner);
+	            tok = scanner.peekToken();
+	            directives = processDirectives(scanner);
 	            if(!(scanner.peekToken() is DocumentStartToken)) {
 	                throw new ParserException(null,"expected '<document start>', but found " + tok, "line number: " + scanner.productionLineNumber());
 	            }
@@ -146,11 +152,11 @@ public class Parser {
 	            return new DocumentStartEvent(true, directives[0], directives[1]);
 	       
 	       case P_DOCUMENT_START_IMPLICIT:
-                var directives : Array = processDirectives(scanner);
+                directives = processDirectives(scanner);
                 return new DocumentStartEvent(false,directives[0], directives[1]);	       
 	       
 	       case P_DOCUMENT_END:
-	            var tok : Token = scanner.peekToken();
+	            tok = scanner.peekToken();
 	            var explicit : Boolean = false;
 	            while(scanner.peekToken() is DocumentEndToken) {
 	                scanner.getToken();
@@ -159,7 +165,7 @@ public class Parser {
 	            return explicit ? DOCUMENT_END_TRUE : DOCUMENT_END_FALSE;
 	       
 	       case P_BLOCK_NODE:
-                var curr : Token = scanner.peekToken();
+                curr = scanner.peekToken();
                 if(curr is DirectiveToken || curr is DocumentStartToken || curr is DocumentEndToken || curr is StreamEndToken) {
                     parseStack.unshift(P_EMPTY_SCALAR);
                 } else {
@@ -174,7 +180,7 @@ public class Parser {
                 return null;
            
            case P_BLOCK_CONTENT:
-                var tok : Token = scanner.peekToken();
+                tok = scanner.peekToken();
                 if(tok is BlockSequenceStartToken) {
                     parseStack.unshift(P_BLOCK_SEQUENCE);
                 } else if(tok is BlockMappingStartToken) {
@@ -191,7 +197,7 @@ public class Parser {
                 return null;
            
            case P_PROPERTIES:
-                var anchor : String = null;
+                anchor = null;
                 var tokValue : Array  = null;
                 var tag: String = null;
                 if(scanner.peekToken() is AnchorToken) {
@@ -246,7 +252,7 @@ public class Parser {
                 return null;
 	            
 	        case P_FLOW_CONTENT:
-                var tok : Token = scanner.peekToken();
+                tok = scanner.peekToken();
                 if(tok is FlowSequenceStartToken) {
                     parseStack.unshift(P_FLOW_SEQUENCE);
                 } else if(tok is FlowMappingStartToken) {
@@ -297,7 +303,7 @@ public class Parser {
 	       case P_BLOCK_SEQUENCE_ENTRY:
                 if(scanner.peekToken() is BlockEntryToken) {
                     scanner.getToken();
-                    var curr: Token = scanner.peekToken();
+                    curr = scanner.peekToken();
                     if(!(curr is BlockEntryToken || curr is BlockEndToken)) {
                         parseStack.unshift(P_BLOCK_SEQUENCE_ENTRY);
                         parseStack.unshift(P_BLOCK_NODE);
@@ -309,11 +315,11 @@ public class Parser {
                 return null;
 	            
 	       case P_BLOCK_MAPPING_ENTRY:
-                var last : Token = scanner.peekToken();
+                last = scanner.peekToken();
                 if(last is KeyToken || last is ValueToken) {
                     if(last is KeyToken) {
                         scanner.getToken();
-                        var curr : Token = scanner.peekToken();
+                        curr = scanner.peekToken();
                         if(!(curr is KeyToken || curr is ValueToken || curr is BlockEndToken)) {
                             parseStack.unshift(P_BLOCK_MAPPING_ENTRY);
                             parseStack.unshift(P_BLOCK_MAPPING_ENTRY_VALUE);
@@ -332,11 +338,11 @@ public class Parser {
                 return null;
 	            
 	       case P_BLOCK_MAPPING_ENTRY_VALUE:
-                var last: Token = scanner.peekToken();
+                last = scanner.peekToken();
                 if (last is KeyToken || last is ValueToken) {
                     if(last is ValueToken) {
                         scanner.getToken();
-                        var curr : Token = scanner.peekToken();
+                        curr = scanner.peekToken();
                         if(!(curr is KeyToken || curr is ValueToken || curr is BlockEndToken)) {
                             parseStack.unshift(P_BLOCK_NODE_OR_INDENTLESS_SEQUENCE);
                         } else {
@@ -350,7 +356,7 @@ public class Parser {
                 return null;
 	            
 	       case P_BLOCK_NODE_OR_INDENTLESS_SEQUENCE:
-                var last: Token = scanner.peekToken();
+                last = scanner.peekToken();
                 if(last is AliasToken) {
                     parseStack.unshift(P_ALIAS);
                 } else {
@@ -365,12 +371,12 @@ public class Parser {
                 return null;
 	            
 	       case P_BLOCK_SEQUENCE_START:
-                var impl : Boolean = tags[0] == null || tags[0] == "!";
+                impl= tags[0] == null || tags[0] == "!";
                 scanner.getToken();
                 return new SequenceStartEvent(anchors[0], tags[0], impl,false);
 	            
 	       case P_BLOCK_SEQUENCE_END:
-                var tok : Token = null;
+                tok = null;
                 if(!(scanner.peekToken() is BlockEndToken)) {
                     tok = scanner.peekToken();
                     throw new ParserException("while scanning a block collection","expected <block end>, but found " + tok, "line number: " + scanner.productionLineNumber());
@@ -379,12 +385,12 @@ public class Parser {
                 return SEQUENCE_END;
 	            
 	       case P_BLOCK_MAPPING_START:
-                var impl : Boolean = tags[0] == null || tags[0] == "!";
+                impl= tags[0] == null || tags[0] == "!";
                 scanner.getToken();
                 return new MappingStartEvent(anchors[0], tags[0], impl,false);
 	            
 	       case P_BLOCK_MAPPING_END:
-                var tok : Token = scanner.peekToken();
+                tok = scanner.peekToken();
                 if(!(tok is BlockEndToken)) {
                     throw new ParserException("while scanning a block mapping","expected <block end>, but found " + tok, "line number: " + scanner.productionLineNumber());
                 }
@@ -398,13 +404,13 @@ public class Parser {
                 return null;
 	            
 	       case P_BLOCK_INDENTLESS_SEQUENCE_START:
-                var impl : Boolean = tags[0] == null || tags[0] == "!";
+                impl= tags[0] == null || tags[0] == "!";
                 return new SequenceStartEvent(anchors[0], tags[0], impl, false);
 	            
 	       case P_INDENTLESS_BLOCK_SEQUENCE_ENTRY:
                 if(scanner.peekToken() is BlockEntryToken) {
                     scanner.getToken();
-                    var curr : Token = scanner.peekToken();
+                    curr = scanner.peekToken();
                     if(!(curr is BlockEntryToken || curr is KeyToken || curr is ValueToken || curr is BlockEndToken)) {
                         parseStack.unshift(P_INDENTLESS_BLOCK_SEQUENCE_ENTRY);
                         parseStack.unshift(P_BLOCK_NODE);
@@ -419,7 +425,7 @@ public class Parser {
                 return SEQUENCE_END;
 	            
 	       case P_FLOW_SEQUENCE_START:
-                var impl : Boolean = tags[0] == null || tags[0] == "!";
+                impl= tags[0] == null || tags[0] == "!";
                 scanner.getToken();
                 return new SequenceStartEvent(anchors[0], tags[0], impl,true);
 	            
@@ -445,7 +451,7 @@ public class Parser {
                 return SEQUENCE_END;
 	            
 	       case P_FLOW_MAPPING_START:
-                var impl : Boolean = tags[0] == null || tags[0] == "!";
+                impl= tags[0] == null || tags[0] == "!";
                 scanner.getToken();
                 return new MappingStartEvent(anchors[0], tags[0], impl,true);
 	            
@@ -473,7 +479,7 @@ public class Parser {
                 return new MappingStartEvent(null,null,true,true);
 	            
 	       case P_FLOW_INTERNAL_CONTENT:
-                var curr : Token = scanner.peekToken();
+                curr = scanner.peekToken();
                 if(!(curr is ValueToken || curr is FlowEntryToken || curr is FlowSequenceEndToken)) {
                     parseStack.unshift(P_FLOW_NODE);
                 } else {
@@ -514,7 +520,7 @@ public class Parser {
                 return null;
 	            
 	       case P_FLOW_MAPPING_INTERNAL_CONTENT:
-                var curr : Token = scanner.peekToken();
+                curr = scanner.peekToken();
                 if(!(curr is ValueToken || curr is FlowEntryToken || curr is FlowMappingEndToken)) {
                     scanner.getToken();
                     parseStack.unshift(P_FLOW_NODE);
