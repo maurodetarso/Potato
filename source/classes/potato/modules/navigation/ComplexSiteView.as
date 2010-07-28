@@ -16,7 +16,7 @@ package potato.modules.navigation
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 9.0.0
 	 * 
-	 * @author Lucas Dupin
+	 * @author Lucas Dupin, Fernando França
 	 * @since  16.06.2010
 	 */
 	public class ComplexSiteView extends View
@@ -37,8 +37,8 @@ package potato.modules.navigation
 			
             //Setting default parameters
 			parameters.defaults.basePath   = "."
-			parameters.defaults.configFile = "%(basePath)s/data/main.json";
-			parameters.defaults.tagsFile   = "%(basePath)s/data/tags.json";
+			parameters.defaults.configFile = "%(basePath)s/data/main.%(defaultExtension)s";
+			parameters.defaults.tagsFile   = "%(basePath)s/data/tags.%(defaultExtension)s";
 			parameters.defaults.locale     = "pt_BR";
 			parameters.defaults.localePath = "%(basePath)s/data/locales/%(locale)s";
 			

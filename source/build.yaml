@@ -1,0 +1,23 @@
+---
+# default:
+#     - debug: false
+#       open: public/Main.swf
+#       extra: -use-network=false -static-link-runtime-shared-libraries
+#     
+library-path:
+    - source/swc
+
+source-path:
+    - classes
+    - libs
+#     
+# applications:
+#     - class: source/classes/Main.as
+#       output: public/Main.swf
+
+# asdoc:
+#     - title: "My ActionScript project"
+#       footer: "My ActionScript project footer"
+#       output: docs/
+#       exclude-dirs: 
+#         - source/classes/caurina/

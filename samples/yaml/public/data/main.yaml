@@ -1,0 +1,28 @@
+---
+project-views:
+    - id: loader
+      parameters:
+          - servicePath: mockdata
+            basePath: .
+            userDataServicePath: %(servicePath)s/user.json
+            friendsServicePath: %(servicePath)s/friends.json
+        
+    - id: intro
+      class: myproject.views.IntroView
+      dependencies:
+          - id: intro
+            url: %(localePath)s/videos/header/logo.flv
+          - id: introMusic
+            url: %(localePath)s/videos/home/music.mp3
+    
+    - id: home
+      class: myproject.views.HomeView
+    
+    - id: menu
+      class: myproject.views.MenuView
+
+project-tree:
+    - loader
+    - intro
+    - home:
+        - menu
