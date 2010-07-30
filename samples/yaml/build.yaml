@@ -1,6 +1,6 @@
 ---
 default:
-    - debug: false
+    - debug: true
       open: public/MainView.swf
       extra: -use-network=false -static-link-runtime-shared-libraries
     

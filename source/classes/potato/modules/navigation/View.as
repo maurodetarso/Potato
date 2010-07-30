@@ -15,6 +15,7 @@ package potato.modules.navigation
 	import potato.modules.navigation.NavigationController;
 	import potato.modules.navigation.events.NavigationEvent;
 	import flash.utils.getQualifiedClassName;
+	import potato.display.CoreSprite;
 
 	/**
 	 * Main piece of the navigation
@@ -26,10 +27,10 @@ package potato.modules.navigation
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 9.0.0
 	 * 
-	 * @author Lucas Dupin
+	 * @author Lucas Dupin, Fernando França
 	 * @since  17.06.2010
 	 */
-	public class View extends Sprite implements IDisposable, IVisible
+	public class View extends CoreSprite implements IDisposable, IVisible
 	{
 		/**
 		 * id used for sending messages and doing navigation operations
@@ -330,11 +331,14 @@ package potato.modules.navigation
 		public function resize():void {}
 	
 		/**
-		 * Method to override
-		 * Destroy view
+		 * Dispose view and children.
+		 * *********************************************************
+		 * Don't forget to call super if you override this method
 		 */
-		public function dispose():void {}
-
+		override public function dispose():void {
+			super.dispose();
+		}
+		
         override public function toString():String{
             return "[View: " + id + "]"
         }

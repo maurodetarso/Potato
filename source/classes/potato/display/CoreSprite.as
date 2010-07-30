@@ -1,5 +1,6 @@
 package potato.display
 {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import potato.core.IDisposable;
 	import potato.control.DisposableGroup;
