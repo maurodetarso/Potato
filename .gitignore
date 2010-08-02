@@ -1,2 +1,19 @@
-.DS_Store
+# Tests
 tests/public/*.swf
+
+# SVN directories
+.svn
+
+# OSX
+.DS_Store
+*.pbxuser
+profile
+
+# Flex Builder
+.actionScriptProperties
+.flexProperties
+.project
+.settings
+bin/*
+bin-debug/*
+.flexLibProperties

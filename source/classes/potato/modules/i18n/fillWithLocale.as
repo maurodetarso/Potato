@@ -8,7 +8,7 @@ import flash.display.DisplayObject;
 	* Searches for TextFields in the haystack using the miner function
 	* 
 	* The miner function always receives the TextField as a parameter and should return an String
-	* wich is the id of the localized string in the config.xml, other parameter can be passed usind
+	* which is the id of the localized string in the I18n locale file, other parameter can be passed usind
 	* the rest parameters
 	* 
 	* Ex matching by instance:

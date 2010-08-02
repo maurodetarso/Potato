@@ -1,4 +1,4 @@
-package potato.display
+package display
 {
 	import flash.display.Sprite;
 	import potato.core.IDisposable;

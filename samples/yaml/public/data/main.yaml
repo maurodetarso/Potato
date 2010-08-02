@@ -1,28 +1,31 @@
 ---
-project-views:
+# Project tree structure
+tree:
+    - loader
+    - intro
+    - home:
+        - menu
+
+# Project views list
+views:
     - id: loader
+      localeFile: "%(localePath)s/copydeck.yaml"
       parameters:
           - servicePath: mockdata
             basePath: .
-            userDataServicePath: %(servicePath)s/user.json
-            friendsServicePath: %(servicePath)s/friends.json
+            userDataServicePath: "%(servicePath)s/user.json"
+            friendsServicePath: \%(servicePath)s/friends.json
         
     - id: intro
       class: myproject.views.IntroView
       dependencies:
           - id: intro
-            url: %(localePath)s/videos/header/logo.flv
+            url: "%(localePath)s/videos/header/logo.flv"
           - id: introMusic
-            url: %(localePath)s/videos/home/music.mp3
+            url: \%(localePath)s/videos/home/music.mp3
     
     - id: home
       class: myproject.views.HomeView
     
     - id: menu
       class: myproject.views.MenuView
-
-project-tree:
-    - loader
-    - intro
-    - home:
-        - menu

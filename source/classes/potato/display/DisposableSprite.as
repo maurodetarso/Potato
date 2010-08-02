@@ -6,7 +6,7 @@ package potato.display
 	import potato.control.DisposableGroup;
 	
 	/**
-	 * A CoreSprite provides easier management of disposable child objects.
+	 * A DisposableSprite provides easier management of disposable child objects.
 	 * This class mimetizes the addChild methods of the Sprite class.
 	 * 
 	 * @langversion ActionScript 3
@@ -15,11 +15,11 @@ package potato.display
 	 * @author Fernando França
 	 * @since  30.07.2010
 	 */
-	public class CoreSprite extends Sprite implements IDisposable
+	public class DisposableSprite extends Sprite implements IDisposable
 	{
 		protected var _disposableChildren:DisposableGroup;
 	
-		public function CoreSprite()
+		public function DisposableSprite()
 		{
 			_disposableChildren = new DisposableGroup();
 		}

@@ -1,0 +1,73 @@
+# ROOT
+id: loader
+parameters:
+   servicePath: /
+   basePath: .
+   userDataServicePath: "%(servicePath)susers.json"
+   friendsServicePath: "%(servicePath)sfriends.json"
+views:
+    # 
+    # HEADER
+    - id: header
+      zIndex: 500
+      class: unimedii.views.HeaderView
+    # 
+    # CONTAINER
+    - id: main
+      dependencies:
+        - id: logo
+          url: "%(localePath)s/videos/header/logo.flv"
+        - url: "%(basePath)s/unimedii_main.swf"
+          domain: current
+        - id: introVideo
+          url: "%(localePath)s/videos/home/intro.flv"
+        - id: introLoop
+          url: "%(localePath)s/videos/home/introLoop.flv"
+      localeFile: "%(localePath)s/copydeck.yaml"
+      views:
+        #
+        # HOME
+        - id: home
+          class: unimedii.views.HomeView
+          zIndex: 0,
+          dependencies:
+            - id: statistics
+              url: "%(servicePath)sstatistics.json"
+        # 
+        # AGE CHOOSER SCREEN
+        - id: quizIntro
+          class: unimedii.views.QuizIntroView
+          dependencies:
+            - id: introVideo
+              url: "%(localePath)s/videos/quiz/intro.flv"
+          parameters:
+              defaultAge: 0
+        #
+        # QUIZ 
+        - id: quiz
+          class: unimedii.views.QuizView
+          parameters:
+              introVideo_food: "%(localePath)s/videos/quiz/intro_food.flv"
+              introVideo_health: "%(localePath)s/videos/quiz/intro_health.flv"
+              introVideo_lifestyle: "%(localePath)s/videos/quiz/intro_lifestyle.flv"
+              minAgeChange: -46
+              maxAgeChange: 26
+          dependencies:
+            - id: quizConfig
+              url: "%(basePath)s/data/quiz.json"
+        # 
+        # AGE CHART
+        - id: chart
+          class: unimedii.views.ChartView
+        # 
+        # QUIZ RESULT
+        - id: result
+          class: unimedii.views.ResultView
+          parameters:
+              doc1: "http://twitter.com/Dr_Melhor_Idade"
+              doc2: "http://twitter.com/Dr_Infancia"
+              doc3: "http://twitter.com/Dr_Viver_Bem"
+              doc4: "http://twitter.com/Dr_Romance"
+          dependencies:
+            - id: finalVideo
+              url: "%(localePath)s/videos/result/%(myResult)s.flv"

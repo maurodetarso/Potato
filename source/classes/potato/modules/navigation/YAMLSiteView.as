@@ -5,10 +5,10 @@ package potato.modules.navigation
 	import potato.modules.i18n.I18n;
 
 	/**
-	 * Description
+	 * Complex view (I18n, tracking) configured with YAML syntax
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin, Fernando França
 	 * @since  16.06.2010

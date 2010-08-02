@@ -110,7 +110,7 @@ package potato.core.config
 		}
 		
 		/**
-		 * Inserts or modifyes a property
+		 * Inserts or modifies a property
 		 * If it contains a valid conditional syntax,
 		 * the conditional will be used
 		 */

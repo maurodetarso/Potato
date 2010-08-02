@@ -3,11 +3,11 @@ package potato.core.config
 	import flash.events.IEventDispatcher;
 
 	/**
-	 * Default interface for all potato configurations
+	 * Default interface for all Potato configurations
 	 * Mainly used for lazy config evaluation (conditionals)
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin, Fernando França
 	 * @since  15.06.2010
@@ -21,9 +21,10 @@ package potato.core.config
 		function init():void;
 		
 		/**
-		 * Returns a property or null when none is found.
+		 * Returns a property's value or null when none is found.
 		 * Types MUST be already converted:
 		 * 		"String", 1, "01"
+		 * 
 		 * @example
 		 * 	getProperty("dependencies", "homeBg");
 		 */
@@ -31,6 +32,7 @@ package potato.core.config
 		
 		/**
 		 * Checks for a property existence
+		 * 
 		 * @example
 		 * 	hasProperty("dependencies", "homeBg");
 		 */
@@ -42,9 +44,9 @@ package potato.core.config
 		function get keys():Array;
 		
 		/**
-		 * Inserts or modifyes a property
+		 * Inserts or modifies a property
 		 * If it contains a valid conditional syntax,
-		 * the conditional will be used when the value is requested
+		 * the conditional will be processed when the value is requested (lazy evaluation)
 		 */
 		function setProperty(name:Object, value:Object):void;
 		
@@ -56,7 +58,7 @@ package potato.core.config
 		
 		/**
 		 * In case you want to do string interpolation,
-		 * you can pass an object or a parameters instace!
+		 * you can pass an object or a parameters instance!
 		 */
 		function set interpolationValues(value:Object):void;
 	}

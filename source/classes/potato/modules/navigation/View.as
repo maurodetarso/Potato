@@ -15,7 +15,7 @@ package potato.modules.navigation
 	import potato.modules.navigation.NavigationController;
 	import potato.modules.navigation.events.NavigationEvent;
 	import flash.utils.getQualifiedClassName;
-	import potato.display.CoreSprite;
+	import potato.display.DisposableSprite;
 
 	/**
 	 * Main piece of the navigation
@@ -30,7 +30,7 @@ package potato.modules.navigation
 	 * @author Lucas Dupin, Fernando França
 	 * @since  17.06.2010
 	 */
-	public class View extends CoreSprite implements IDisposable, IVisible
+	public class View extends DisposableSprite implements IDisposable, IVisible
 	{
 		/**
 		 * id used for sending messages and doing navigation operations

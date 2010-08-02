@@ -8,11 +8,7 @@ package potato.modules.navigation
 	import potato.core.config.ObjectConfig;
 
 	/**
-	 * This class is responsable for changing, adding or removing views
-	 * it receives an array of View configs and an object used to do
-	 * string interpolation when creating the Configs.
-	 * 
-	 * Interpolation is optional
+	 * This class is responsible for changing, adding or removing views
 	 * 
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 9.0.0
@@ -22,7 +18,12 @@ package potato.modules.navigation
 	 */
 	public class NavigationController extends TreeController
 	{
-				
+		/**
+		 * @param	viewsConfig	         An object containing view configurations
+		 * @param	currentView	         The current view being navigated
+		 * @param	interpolationValues	 Optional string values to be interpolated against the view configurations
+		 * @constructor
+		 */
 		public function NavigationController(viewsConfig:Object, currentView:View, interpolationValues:Object)
 		{
             //Initializing the TreeController
@@ -65,7 +66,7 @@ package potato.modules.navigation
 		
 		/**
 		 * TODO test with mixed trees (Views and IConfigs)
-		 * Goo deeper in the tree and find where the config is,
+		 * Go deeper in the tree and find where the config is,
 		 * once found, build the loader form it
 		 * @param id String 
 		 * @return ViewLoader 
@@ -110,7 +111,7 @@ package potato.modules.navigation
 		}
 		
 		/**
-		 * This method is responsable for looping in the config and to create
+		 * This method is responsible for looping in the config and to create
 		 * a chained ViewLoader.
 		 * 
 		 * @param search String Id of the view we want to loop for
@@ -316,7 +317,7 @@ package potato.modules.navigation
 			{
 				for each (v in _viewsToHide)
 				{
-					//Remove form list of views
+					//Remove from list of views
 					var p:View = v.nav.parent;
 					p.nav.children.splice(p.nav.children.indexOf(v),1);
 					

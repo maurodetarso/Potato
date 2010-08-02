@@ -1,0 +1,15 @@
+# This is an example copydeck in YAML format
+# Author: Fernando França
+# Since: 02.08.2010
+
+title: My Application
+subtitle: "The greatest application the world has ever seen"
+
+substitution: My title is %(title)
+
+# Example of multiline YAML
+multiline_example: |
+    First line with introductory text, followed
+    by a second Line, maybe we should add
+    a third line just to be certain multiline fields work.
+    

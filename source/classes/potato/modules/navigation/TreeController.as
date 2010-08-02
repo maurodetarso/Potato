@@ -6,13 +6,23 @@ package potato.modules.navigation {
 	import potato.core.config.*;
     import potato.modules.navigation.View;
     
-    public class TreeController extends EventDispatcher{
-
-		protected var _childrenConfig:Vector.<IConfig> = new Vector.<IConfig>();
-
-        //Performance stuff
-        //Keeps a reference of search results
+	/**
+	 * Class responsible for the NavigationController's tree management.
+	 * 
+	 * @see	potato.modules.navigation.NavigationController
+	 * 
+	 * @langversion ActionScript 3
+	 * @playerversion Flash 10.0.0
+	 * 
+	 * @author Lucas Dupin, Fernando França
+	 * @since  17.06.2010
+	 */
+    public class TreeController extends EventDispatcher
+	{
+        //TODO Performance improvement: keeps a reference to search results
         //internal var _cachedSearchResults:Dictionary = new Dictionary(true);
+		
+		protected var _childrenConfig:Vector.<IConfig> = new Vector.<IConfig>();
 		
 		/**
 		 * List of visible children
@@ -23,6 +33,7 @@ package potato.modules.navigation {
 		 * The view which this nav belongs
 		 */
 		public var currentView:View;
+		
 		/**
 		 * Parent View (null if there is none)
 		 */
@@ -37,7 +48,8 @@ package potato.modules.navigation {
 		internal var _viewsLoaded:Vector.<View> = new Vector.<View>();
 
 
-        public function TreeController(viewsConfig:Object, currentView:View, interpolationValues:Object){
+        public function TreeController(viewsConfig:Object, currentView:View, interpolationValues:Object)
+		{
             //Node's view
             this.currentView = currentView;
 
@@ -48,13 +60,13 @@ package potato.modules.navigation {
 			for each(var raw:Object in viewsConfig)
 			{
 				//Creating a config from the raw data
-				var c:IConfig = new ObjectConfig(raw);
-				c.interpolationValues = _interpolationValues;
+				var config:IConfig = new ObjectConfig(raw);
+				config.interpolationValues = _interpolationValues;
 				//No need to wait for the INIT event in ObjectConfigs
-				c.init();
+				config.init();
 				
 				//Checking if this is the config we want
-				_childrenConfig.push(c)
+				_childrenConfig.push(config);
 			}
 
         }
@@ -142,10 +154,10 @@ package potato.modules.navigation {
 			//Could not find, go up in the tree
 				return findCommonAncestor(startFrom.nav.parent, needle);
 		}
-
+		
         public function get root():View
 		{
-            //Performance stuff
+            //TODO Performance improvement
             //if(_cachedSearchResults["potatoRoot"]) return _cachedSearchResults["potatoRoot"];
 
 			//Go to the root of the tree
@@ -154,7 +166,7 @@ package potato.modules.navigation {
 				topView = topView.nav.parent;
             }
 				
-            //Caching the result
+            //TODO Performance improvement: Caching the result
             //_cachedSearchResults["potatoRoot"] = topView;
 			return topView;
 		}
@@ -174,17 +186,10 @@ package potato.modules.navigation {
 					v.dispose();
 				children = null;
 			}
-			
 			_childrenConfig = null;
-			
-			_viewsToHide =
-			_viewsToShow =
-			children = null;
-			
+			_viewsToHide = null;
+			_viewsToShow = null;
+			_viewsLoaded = null;	
 		}
-
-
-
     }
 }
-

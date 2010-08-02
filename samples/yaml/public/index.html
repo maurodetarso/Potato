@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>Potato - YAML Example</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="en" />
+	<meta name="description" content="http://github.com/gringo-nu/Potato" />
+	<meta name="keywords" content="" />
+	
+	<script src="js/swfobject.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var flashvars = {
+		};
+		var params = {
+			menu: "false",
+			scale: "noScale",
+			allowFullscreen: "true",
+			allowScriptAccess: "always",
+			bgcolor: "#ffffff"
+		};
+		var attributes = {
+			id:"prototype"
+		};
+		swfobject.embedSWF("MainView.swf", "altContent", "640", "480", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+	</script>
+	<style>
+		html, body { margin:0; padding:0;height:100%;}
+		body { background: url(background.gif); background-color: #000; font-family: Arial;}
+		#top { position: absolute; width: 100%; height: 50px;}
+		#floater { position:relative; float:left; height:50%; margin-bottom:-240px; width: 1px;}
+		#content { position: relative; clear: left; height: 480px; width: 640px; margin: 0 auto;}
+		#altContent { display: table-cell; vertical-align: middle; height: 480px; }
+		#message { background-color: #fff; width: 600px; border: 2px solid #aaa; padding: 20px; }		
+		a img { border: none;}
+	</style>
+</head>
+<body>
+<div id="top"></div>
+<div id="floater"></div>
+	<div id="content">
+		<div id="altContent">
+		<div id="message">
+			<h1>Oops!</h1>
+			<p>Thank you very much for taking your time to participate in this project. Unfortunately to proceed you need to fulfill the following requirements:</p>
+			<ul>
+				<noscript><li>Have Javascript enabled in your browser.</li></noscript>
+				<li>Have Flash Player 9.0 or higher installed.</li>
+			</ul>
+			<p style="text-align:center;"><a href="http://www.adobe.com/go/getflashplayer"><img style="width:160px; height:41px;"
+				src="http://www.adobe.com/macromedia/style_guide/images/160x41_Get_Flash_Player.jpg" 
+				alt="Get Adobe Flash player" /></a></p>
+		</div>
+		</div>
+	</div>
+	
+</body>
+</html>
