@@ -9,48 +9,60 @@ import potato.core.config.ObjectConfig;
 import potato.core.dsl.ConditionalParser;
 
 /**
+ *  Dispatched when the YAML file has finished loading and has been parsed.
+ *
+ *  @eventType flash.events.Event.INIT
+ */
+[Event(name="init", type="flash.events.Event")]
+
+/**
+ * Configuration based on YAML files
  * 
  * @langversion ActionScript 3
- * @playerversion Flash 9.0.0
+ * @playerversion Flash 10.0.0
  * 
- * @author Lucas Dupin
+ * @author Lucas Dupin, Fernando França
  * @since  15.06.2010
  */
 public class YAMLConfig extends ObjectConfig implements IConfig
 {
-	//JSON URL
+	/**
+	 * URL for the YAML file
+	 * @private
+	 */
 	protected var _url:String;
 	
+	/**
+	 * @param	url	 The URL of the YAML configuration file
+	 * @constructor
+	 */
 	public function YAMLConfig(url:String)
 	{
 		_url = url;
 	}
 	
 	/**
-	 * Starts to load the JSON
+	 * Starts loading the YAML file
 	 */
 	override public function init():void
 	{
-		//Loading our file!
-		var l:URLLoader = new URLLoader(new URLRequest(_url));
-		l.addEventListener(Event.COMPLETE, onConfigLoaded);
+		var urlLoader:URLLoader = new URLLoader(new URLRequest(_url));
+		urlLoader.addEventListener(Event.COMPLETE, onConfigLoaded);
 	}
 	
 	/**
+	 * Parses the YAML file after it has been loaded and dispatches the INIT event
 	 * @private
 	 */
-	public function onConfigLoaded(e:Event):void
+	protected function onConfigLoaded(e:Event):void
 	{
-		//Removing listener, so that we won't have memory leaks
+		// Removing listener, so that we won't have memory leaks
 		e.target.removeEventListener(Event.COMPLETE, onConfigLoaded);
 		
-		//var unpaserdConfig:Object = YAML.decode(e.target.data);
-		
+		// Decode YAML
 		_config = YAML.decode(e.target.data);
 		
-		//Continue from where we left
-		//_config = unpaserdConfig;
-		
+		// Notify
 		dispatchEvent(new Event(Event.INIT));
 	}
 	
