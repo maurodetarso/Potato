@@ -11,25 +11,10 @@ package potato.modules.i18n {
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0
 	 * 
-	 * @author Lucas Dupin
+	 * @author Lucas Dupin, Fernando França
 	 * @since  26.07.2010
 	 */
 	public class I18n extends EventDispatcher {
-		
-		public static const MATCH_BY_TEXT:Function = function(e:TextField):String {
-			if (e.text.charAt(0) == "{" && e.text.charAt(e.text.length -1) == "}")
-				return e.text.substring(1, e.text.length-2);
-			return null;
-		}
-		public static const MATCH_BY_INSTANCE:Function = function(e:TextField):String{
-			return e.name;
-		}
-		public static const MATCH_BY_INSTANCE_WITH_PREFIX:Function = function(e:TextField, prefix:String):String{
-			return prefix + e.name;
-		}
-		public static const MATCH_BY_INSTANCE_WITH_SUFFIX:Function = function(e:TextField, prefix:String):String{
-			return e.name + prefix;
-		}
 		
 		private var configs:Vector.<IConfig> = new Vector.<IConfig>();
 		

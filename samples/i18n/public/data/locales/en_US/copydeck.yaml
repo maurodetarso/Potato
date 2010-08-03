@@ -17,3 +17,8 @@ multiline_example: |
     First line with introductory text, followed
     by a second Line, maybe we should add
     a third line just to be certain multiline fields work.
+
+# Fill with locale - MATCH_BY_TEXT
+custom_section_title: My Custom Section
+
+custom_section_subtitle: And here is my subtitle

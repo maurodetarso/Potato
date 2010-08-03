@@ -38,6 +38,13 @@ package
 			addChild(new CustomTextField(20, 50, _("subtitle")));
 			addChild(new CustomTextField(20, 80, _("my_html"), true));
 			addChild(new CustomTextField(20, 110, _("multiline_example")));
+			
+			// custom class exported from Flash CS4 (i18n_sample.swc)
+			var myContainer:MyContainer = new MyContainer();
+			myContainer.x = 20;
+			myContainer.y = 190;
+			fillWithLocale(myContainer, I18nMatch.MATCH_BY_TEXT);
+			addChild(myContainer);
 		}
 	}
 }
