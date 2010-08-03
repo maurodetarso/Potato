@@ -25,7 +25,7 @@ package potato.modules.navigation
 	 * can be present
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin, Fernando França
 	 * @since  17.06.2010

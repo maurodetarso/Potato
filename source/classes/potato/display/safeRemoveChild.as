@@ -3,7 +3,7 @@ package potato.display
 	import flash.display.DisplayObject;
 	
 	/**
-	 * Yet another DisplayObject safe removal implementation
+	 * Yet another DisplayObject safe removal implementation.
 	 * 
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0

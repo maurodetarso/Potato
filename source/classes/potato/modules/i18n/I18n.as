@@ -9,7 +9,7 @@ package potato.modules.i18n {
 	 * Default i18n implementation
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin
 	 * @since  26.07.2010

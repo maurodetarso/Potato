@@ -6,7 +6,7 @@ package potato.display
 	import potato.control.DisposableGroup;
 	
 	/**
-	 * A DisposableSprite provides easier management of disposable child objects.
+	 * Provides easier management of disposable child objects.
 	 * This class mimetizes the addChild methods of the Sprite class.
 	 * 
 	 * @langversion ActionScript 3
@@ -25,7 +25,7 @@ package potato.display
 		}
 		
 		/**
-		 * @private
+		 * Automatically disposes children.
 		 */
 		public function dispose():void
 		{

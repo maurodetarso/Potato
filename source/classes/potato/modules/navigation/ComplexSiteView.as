@@ -12,10 +12,11 @@ package potato.modules.navigation
 	import potato.core.config.ObjectConfig;
 
 	/**
-	 * Description
+	 * The complex view includes the parameters, dependencies and localization (I18n) modules.
+	 * This base class is extended for each configuration file type (defaultExtension).
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin, Fernando França
 	 * @since  16.06.2010
@@ -30,9 +31,7 @@ package potato.modules.navigation
 			Dependencies;
 			I18n;
 			
-			/*
-			Stage config
-			*/
+			//Stage setup
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
@@ -43,7 +42,7 @@ package potato.modules.navigation
 			parameters.defaults.locale     = "pt_BR";
 			parameters.defaults.localePath = "%(basePath)s/data/locales/%(locale)s";
 			
-            //Getting data from loaderInfo
+            //Getting data from loaderInfo (flashvars)
 			for (var p:String in loaderInfo.parameters)
             {
                 var val:* = loaderInfo.parameters[p];

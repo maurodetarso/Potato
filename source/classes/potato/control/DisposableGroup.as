@@ -3,7 +3,7 @@ package potato.control
 	import potato.core.IDisposable;
 
 	/**
-	 * Groups IDisposable objects
+	 * Groups IDisposable objects.
 	 * Subgrouping is also possible with this approach.
 	 * 
 	 * @langversion ActionScript 3

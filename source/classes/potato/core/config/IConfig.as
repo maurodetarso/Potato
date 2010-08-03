@@ -39,7 +39,7 @@ package potato.core.config
 		function hasProperty(...prop):Boolean;
 		
 		/**
-		 * All property keys
+		 * Returns an Array containing all property keys
 		 */
 		function get keys():Array;
 		

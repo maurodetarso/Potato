@@ -9,7 +9,7 @@ import potato.core.config.ObjectConfig;
 import potato.core.dsl.ConditionalParser;
 
 /**
- *  Dispatched when the YAML file has finished loading and has been parsed.
+ *  Dispatched after the YAML file has been loaded and parsed.
  *
  *  @eventType flash.events.Event.INIT
  */
@@ -59,7 +59,7 @@ public class YAMLConfig extends ObjectConfig implements IConfig
 		// Removing listener, so that we won't have memory leaks
 		e.target.removeEventListener(Event.COMPLETE, onConfigLoaded);
 		
-		// Decode YAML
+		// Parse YAML
 		_config = YAML.decode(e.target.data);
 		
 		// Notify

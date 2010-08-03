@@ -14,7 +14,7 @@ package potato.modules.parameters
 	 * Description
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin
 	 * @since  16.06.2010

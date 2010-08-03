@@ -2,10 +2,13 @@ package
 {
 	import potato.modules.navigation.YAMLSiteView;
 	import display.RectangularSprite;
+	import potato.modules.i18n._;
+	import potato.modules.i18n.I18n;
+	import potato.core.config.YAMLConfig;
+	import flash.events.Event;
 	
 	public class MainView extends YAMLSiteView
 	{
-	
 		public function MainView()
 		{
 			super();
@@ -22,10 +25,10 @@ package
 			rs.x = 100;
 			rs.y = 100;
 			addDisposableChild(rs);
-			
+			trace(_("title"));
 			trace(_config.hasProperty("project_views"));
 			//trace(_config.project_views);
-			trace(parameters.userDataServicePath);
+			trace(parameters.userDataServicePath);	
 		}
 		
 		override public function dispose():void

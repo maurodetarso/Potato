@@ -10,7 +10,7 @@ package potato.core.config
 	 * Main config implementation
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin
 	 * @since  26.07.2010
@@ -120,7 +120,7 @@ package potato.core.config
 		}
 		
 		/**
-		 * All property keys
+		 * @inheritDoc
 		 */
 		public function get keys():Array
 		{

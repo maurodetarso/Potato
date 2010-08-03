@@ -17,7 +17,7 @@ package potato.modules.navigation
 	 * Loads the view and notifies progress or completion
 	 * 
 	 * @langversion ActionScript 3
-	 * @playerversion Flash 9.0.0
+	 * @playerversion Flash 10.0.0
 	 * 
 	 * @author Lucas Dupin
 	 * @since  17.06.2010

@@ -5,7 +5,7 @@ package potato.modules.navigation
 	import potato.modules.i18n.I18n;
 
 	/**
-	 * Complex view (I18n, tracking) configured with JSON syntax
+	 * Complex view (I18n, tracking) configured with JSON syntax.
 	 * 
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0
@@ -21,7 +21,7 @@ package potato.modules.navigation
 			super();
 			
             //Setting default parameters
-			parameters.defaults.defaultExtension   = "json"
+			parameters.defaults.defaultExtension = "json";
 
             //Initialize tracking
             Tracker.instance.config = new JSONConfig(parameters.tagsFile);
