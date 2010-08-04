@@ -7,6 +7,15 @@ package
 	import potato.core.config.YAMLConfig;
 	import flash.events.Event;
 	
+	/**
+	 * Example for YAMLSiteView. (not yet finished)
+	 * 
+	 * @langversion ActionScript 3
+	 * @playerversion Flash 10.0.0
+	 * 
+	 * @author Fernando França
+	 * @since  04.08.2010
+	 */
 	public class MainView extends YAMLSiteView
 	{
 		public function MainView()
@@ -28,7 +37,7 @@ package
 			trace(_("title"));
 			trace(_config.hasProperty("project_views"));
 			//trace(_config.project_views);
-			trace(parameters.userDataServicePath);	
+			trace(parameters.userDataServicePath);
 		}
 		
 		override public function dispose():void

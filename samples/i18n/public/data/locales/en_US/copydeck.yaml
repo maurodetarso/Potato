@@ -12,6 +12,10 @@ subtitle: "The greatest application the world has ever seen"
 # Beautiful HTML syntax without escaping or dreaded CDATA tags ^^
 my_html: <p>This is a <b>bold</b> statement!</p>
 
+# Dynamic string to be subtituted with the printf function
+# Notice the substitution symbols %(product)s and %(cost)s
+dynamic_example: "Do you want to <b>buy a %(product)s</b>? Buy it today for only <b>US$ %(cost)s</b>!" 
+
 # Example of multiline YAML, starting with a pipe (" | ")
 multiline_example: |
     First line with introductory text, followed

@@ -7,7 +7,8 @@ package
 	
 	/**
 	 * Simple example of i18n locale being loaded.
-	 * Remember to read the YAML locale example:
+	 * 
+	 * Remember to read the YAML locale configuration example:
 	 * samples/i18n/data/locales/en_US/copydeck.yaml
 	 * 
 	 * @langversion ActionScript 3
@@ -22,6 +23,7 @@ package
 		{
 			super();
 			
+			// Start loading the locale file
 			I18n.instance.addEventListener(Event.COMPLETE, onLocaleLoaded);
 			I18n.instance.inject(new YAMLConfig("data/locales/en_US/copydeck.yaml"));
 		}
@@ -37,12 +39,19 @@ package
 			addChild(new CustomTextField(20, 20, _("title")));
 			addChild(new CustomTextField(20, 50, _("subtitle")));
 			addChild(new CustomTextField(20, 80, _("my_html"), true));
-			addChild(new CustomTextField(20, 110, _("multiline_example")));
 			
-			// custom class exported from Flash CS4 (i18n_sample.swc)
+			// The "_" shorthand also includes useful printf functionality (credit should go to Arthur Debert for that!)
+			addChild(new CustomTextField(20, 110, _("dynamic_example", {product: "bicycle", cost: 100}), true));
+			
+			// Multilines are handled gracefully with YAML, but feel free to use the file format that suits you best
+			addChild(new CustomTextField(20, 140, _("multiline_example")));
+			
+			// Custom DisplayObject asset exported from Flash CS4 (i18n_sample.swc)
 			var myContainer:MyContainer = new MyContainer();
 			myContainer.x = 20;
-			myContainer.y = 190;
+			myContainer.y = 210;
+			
+			// Let's use the fillWithLocale helper to automatically fill the asset's TextFields!
 			fillWithLocale(myContainer, I18nMatch.MATCH_BY_TEXT);
 			addChild(myContainer);
 		}
