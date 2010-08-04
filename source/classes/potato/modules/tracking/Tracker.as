@@ -11,59 +11,67 @@ package potato.modules.tracking {
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0
 	 * 
-	 * @author Lucas Dupin
+	 * @author Lucas Dupin, Fernando França
 	 * @since  26.07.2010
 	 */
     public class Tracker{
 
-        //List of thing to track
-        public var line:Array=[];
-        //Tracking function
+        // Tracking call queue
+        public var trackQueue:Array = [];
+        // Tracking function
         public var functionName:String = "track";
-        //tracking values
+        // Tracking configuration
         public var config:IConfig;
-        //flag
+        // Flag
         private var configLoaded:Boolean;
 
         private static var _instance:Tracker;
 
+		public function Tracker(singleton:SingletonEnforcer){}
+		
+		/**
+		 * Get Tracker instance (Singleton)
+		 */
         public static function get instance():Tracker{
             if(!_instance)
-                _instance = new Tracker();
+                _instance = new Tracker(new SingletonEnforcer());
 
             return _instance;
         }
-
+		
+		/**
+		* Creates a new tracking call and pushes it to the queue.
+		* @param	id	 The id of the tracking call.
+		* @param	replace	 Optional arguments of the tracking call.
+		*/
         public function track(id:String, ...replace):void{
 
-            //Adding to the line
-            line.push({id: id, replace: replace});
+            //Adding to the trackQueue
+            trackQueue.push({id: id, replace: replace});
 
             //Check if it's loaded
             if(!configLoaded) {
-                if(!config) {
-                    trace("[Tracker] no config");
-                    return;
-                }
-
                 loadConfig();
-                return;
             }
-
-            if(configLoaded) move();
+			else {
+				processQueue();
+			}
         }
 
-        //Deals with the line
-        public function move():void{
+       	/**
+       	 * Process next queued tracking call
+       	 */
+        public function processQueue():void{
             
-            //Tracking sequence
-            while (line.length)
+            // Tracking sequence
+            while (trackQueue.length)
             {
-                var o:Object = line.shift();
+                var o:Object = trackQueue.shift();
 
                 //Getting the value of this key in the config
                 var val:String = config.getProperty(o.id);
-                //Stirng interpolation
+                
+				//String interpolation
                 val = printf.apply(null, [val].concat(o.replace));
 
                 //Calling
@@ -72,17 +80,35 @@ package potato.modules.tracking {
             
         }
 
-        /*
+        /**
+         * Load configuration file
          * @private
-         * */
-        protected function loadConfig():void{
-            var onConfigInit:Function = function(e:Event):void{
-                e.target.removeEventListener(Event.INIT, onConfigInit);
-                configLoaded = true;
-                move();
+         */
+        protected function loadConfig():void
+		{
+			if(!config) {
+                trace("[Tracker] no config");
+                return;
             }
             config.addEventListener(Event.INIT, onConfigInit);
             config.init();
         }
+		
+		/**
+		 * Setup tracker after configuration has been loaded.
+		 * @param e Event 
+		 * @private
+		 */
+		protected function onConfigInit(e:Event):void
+		{
+			e.target.removeEventListener(Event.INIT, onConfigInit);
+            configLoaded = true;
+            processQueue();
+		}
     }
 }
+
+/**
+ * Enforces the Singleton design pattern.
+ */
+internal class SingletonEnforcer{}

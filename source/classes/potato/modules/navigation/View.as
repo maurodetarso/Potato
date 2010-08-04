@@ -50,11 +50,13 @@ package potato.modules.navigation
 		 */
 		public var zIndex:int=0;
 		
+		// The following variables use a decoupled behavior
+		// (dependencies and parameters modules are not included by default)
 		protected var _parameters:Object;
 		protected var _dependencies:IDependencies;
 		protected var _config:IConfig;
 		
-		//Flag
+		// Flag
 		protected var _initialized:Boolean = false;
 	
 		/**
@@ -90,7 +92,7 @@ package potato.modules.navigation
 		/**
 		 * @param e Event 
 		 * Runs after que configuration is loaded.
-		 * Responsable for setting default view behaviours: init, resize, transitions
+		 * Responsible for setting default view behaviours: init, resize, transitions
 		 */
 		public function onConfigInit(e:Event=null):void
 		{
@@ -103,7 +105,7 @@ package potato.modules.navigation
 				id = _config.getProperty("id");
 			else if (!id)
 				id = getQualifiedClassName(this);
-				
+			
 			if(_config.hasProperty("parameters"))
 				parameters.inject(_config.configForKey("parameters"));
 			
@@ -236,7 +238,7 @@ package potato.modules.navigation
 		/**
 		 * Potato parameters.
 		 * Returns null when the module is not included
-		 * Otherwise, a <code>potato.modules.parameters.Parameters</code> instace is returned
+		 * Otherwise, a <code>potato.modules.parameters.Parameters</code> instance is returned
 		 * (automatically created if needed)
 		 */
 		public function get parameters():Object
@@ -268,11 +270,12 @@ package potato.modules.navigation
 		
 		/**
 		 * Potato dependencies.
-		 * Returns null when the module is not included
-		 * Otherwise, a <code>potato.modules.dependencies.Dependencies</code> instace is returned
 		 * 
-		 * Dependencies should be added in the main config file, but nothing blocks you from adding them
-		 * by code
+		 * Returns null when the module is not included
+		 * Otherwise, a <code>potato.modules.dependencies.Dependencies</code> instance is returned
+		 * 
+		 * Dependencies are usually added in the main configuration file, but nothing prevents you
+		 * from adding them manually using your own code.
 		 * 
 		 * (automatically created if needed)
 		 */
@@ -288,7 +291,8 @@ package potato.modules.navigation
 	
 		/**
 		 * Method to override
-		 * View initialization, all stuff available: Dependencies, parameters, stage
+		 * Called after the view has been initialized and added to the stage.
+		 * At this point dependencies, parameters and stage are available to you.
 		 */
 		public function init():void {}
 	
@@ -296,7 +300,7 @@ package potato.modules.navigation
 		 * Method to override
 		 * Transition stuff
 		 * *********************************************************
-		 * Don't forget to call super if you override this method
+		 * <b>Don't forget to call super if you override this method</b>
 		 */
 		public function show():void {
 			nav.addEventListener(NavigationEvent.TRANSITION_COMPLETE, _showComplete, false, 0, true);
@@ -312,7 +316,7 @@ package potato.modules.navigation
 		 * Method to override
 		 * Transition stuff
 		 * *********************************************************
-		 * Don't forget to call super if you override this method
+		 * <b>Don't forget to call super if you override this method</b>
 		 */
 		public function hide():void {
 			nav.addEventListener(NavigationEvent.TRANSITION_COMPLETE, _hideComplete, false, 0, true);
@@ -333,12 +337,15 @@ package potato.modules.navigation
 		/**
 		 * Dispose view and children.
 		 * *********************************************************
-		 * Don't forget to call super if you override this method
+		 * <b>Don't forget to call super if you override this method</b>
 		 */
 		override public function dispose():void {
 			super.dispose();
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
         override public function toString():String{
             return "[View: " + id + "]"
         }
