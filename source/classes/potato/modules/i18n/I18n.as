@@ -29,23 +29,20 @@ package potato.modules.i18n {
         public static var parser:Class;
 
 		/**
-		 * Singleton
+		 * Get I18n instance (Singleton)
 		 */
 		public static function get instance():I18n
 		{
 			if(!_instance)
-				_instance = new I18n();
+				_instance = new I18n(new SingletonEnforcer());
+			
 			return _instance;
 		}
 		
 		/**
-		 * Constructor
+		 * Constructor (Singleton, access is only allowed through the I18n.instance)
 		 */
-		public function I18n():void
-		{
-			if(_instance)
-				throw new Error("singleton");
-		}
+		public function I18n(singleton:SingletonEnforcer):void {}
 		
 		/**
 		 * @param config IConfig config with localization text
@@ -138,3 +135,8 @@ internal class ConfigProxy extends Proxy
 	}
 
 }
+
+/**
+ * Enforces the Singleton design pattern.
+ */
+internal class SingletonEnforcer{}

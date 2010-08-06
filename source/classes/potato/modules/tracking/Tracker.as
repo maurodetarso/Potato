@@ -27,17 +27,23 @@ package potato.modules.tracking {
 
         private static var _instance:Tracker;
 
-		public function Tracker(singleton:SingletonEnforcer){}
+		
 		
 		/**
 		 * Get Tracker instance (Singleton)
 		 */
-        public static function get instance():Tracker{
+        public static function get instance():Tracker
+		{
             if(!_instance)
                 _instance = new Tracker(new SingletonEnforcer());
 
             return _instance;
         }
+
+		/**
+		 * Constructor (Singleton, access is only allowed through the Tracker.instance)
+		 */
+		public function Tracker(singleton:SingletonEnforcer){}
 		
 		/**
 		* Creates a new tracking call and pushes it to the queue.
