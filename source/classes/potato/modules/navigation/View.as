@@ -5,7 +5,6 @@ package potato.modules.navigation
 	
 	import potato.core.config.IConfig;
 	import flash.utils.Proxy;
-	import flash.utils.getDefinitionByName;
 	import potato.modules.dependencies.IDependencies;
 	import potato.core.IDisposable;
 	import potato.core.IVisible;
@@ -16,6 +15,7 @@ package potato.modules.navigation
 	import potato.modules.navigation.events.NavigationEvent;
 	import flash.utils.getQualifiedClassName;
 	import potato.display.DisposableSprite;
+	import potato.utils.getInstanceByName;
 
 	/**
 	 * Main piece of the navigation
@@ -40,7 +40,6 @@ package potato.modules.navigation
 		/**
 		 * navigation controller,
 		 * used to change, remove, add or load views
-		 * 
 		 */
 		public var nav:NavigationController;
 	
@@ -214,6 +213,8 @@ package potato.modules.navigation
 		 */
 		public function sortViews():void
 		{
+			if(nav.children.length == 0) return;
+			
 			//Sorting
 			var lastView:View = nav.children[0];
 			for each (var view:View in nav.children)
@@ -245,18 +246,7 @@ package potato.modules.navigation
 		{
 			//Initialization?
 			if(!_parameters)
-			{
-				try
-				{
-					//Check if the module was included and create an instance
-					var klass:Class = getDefinitionByName("potato.modules.parameters.Parameters") as Class;
-					//Create an instance
-					_parameters = new klass();
-				} 
-				catch (e:ReferenceError) {
-					trace("[View] Error, potato.modules.parameters.Parameters was not found");
-				}
-			}
+				_parameters = getInstanceByName("potato.modules.parameters.Parameters");
 			
 			return _parameters;
 		}

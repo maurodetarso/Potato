@@ -12,6 +12,7 @@ package potato.modules.navigation
 	import ReferenceError;
 	import potato.core.IDisposable;
 	import potato.modules.navigation.events.NavigationEvent;
+	import potato.utils.getInstanceByName;
 
 	/**
 	 * Loads the view and notifies progress or completion
@@ -166,17 +167,11 @@ package potato.modules.navigation
 		
 		protected function getDependenciesInstance(config:IConfig):IDependencies
 		{
-			try
-			{
-				//Check if the module was included
-				var klass:Class = getDefinitionByName("potato.modules.dependencies.Dependencies") as Class;
-				//Create an instance
-				return(new klass(config));
-			} 
-			catch (e:ReferenceError) {
-				throw new Error("[ViewLoader] probably potato.modules.dependencies.Dependencies was not found.");
-			}
-			return null;
+			var dependencies:IDependencies = getInstanceByName("potato.modules.dependencies.Dependencies", config);
+			
+			if(!dependencies) throw new Error("[ViewLoader] probably potato.modules.dependencies.Dependencies was not found.");
+			
+			return dependencies;
 		}
 		
 		/**
@@ -194,8 +189,7 @@ package potato.modules.navigation
 		 */
 		protected function onViewReadyToCreate(e:Event=null):void
 		{
-			var klass:Class = getDefinitionByName(_viewConfig.getProperty("class") || "potato.modules.navigation.View") as Class;
-			view = new klass();
+			view = getInstanceByName(_viewConfig.getProperty("class") || "potato.modules.navigation.View");
 			view.startup(_viewConfig);
 			
 			if(e)

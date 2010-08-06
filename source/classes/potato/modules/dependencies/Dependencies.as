@@ -79,7 +79,7 @@ package potato.modules.dependencies
 				start();
 			}
 			else{
-				dispatchEvent(new Event(Event.COMPLETE))
+				dispatchEvent(new Event(Event.COMPLETE));
 			}
 				
 		}
