@@ -6,7 +6,11 @@ package potato.modules.navigation
 	import potato.modules.navigation.View;
 	import potato.core.config.IConfig;
 	import potato.core.config.ObjectConfig;
-
+	
+	// Potato Navigation module namespace
+	import potato.modules.navigation.potato_navigation;
+	use namespace potato_navigation;
+	
 	/**
 	 * This class is responsible for changing, adding or removing views
 	 * 

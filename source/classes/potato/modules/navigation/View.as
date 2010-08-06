@@ -16,6 +16,10 @@ package potato.modules.navigation
 	import flash.utils.getQualifiedClassName;
 	import potato.display.DisposableSprite;
 	import potato.utils.getInstanceByName;
+	
+	// Potato Navigation module namespace
+	import potato.modules.navigation.potato_navigation;
+	use namespace potato_navigation;
 
 	/**
 	 * Main piece of the navigation
@@ -71,7 +75,7 @@ package potato.modules.navigation
 		 * 
 		 * Prepares the view to receive interaction.
 		 */
-		public final function startup(value:IConfig=null):void
+		potato_navigation final function startup(value:IConfig=null):void
 		{
 			// Flag
 			_initialized = true;
@@ -150,7 +154,7 @@ package potato.modules.navigation
 		 * @private
 		 * Internal initialization (fired after view is added to the stage).
 		 */
-		protected function _init(e:Event=null):void
+	 	potato_navigation function _init(e:Event=null):void
 		{
 			//Init only once
 			removeEventListener(Event.ADDED_TO_STAGE, _init);
@@ -169,7 +173,7 @@ package potato.modules.navigation
 		 * @private
 		 * Internal resize, calls user implementation.
 		 */
-		protected function _resize(e:Event):void
+		potato_navigation function _resize(e:Event):void
 		{
 			if(stage)
 				resize();
@@ -179,7 +183,7 @@ package potato.modules.navigation
 		 * @private
 		 * Internal dispose
 		 */
-		internal final function _dispose():void
+		potato_navigation function _dispose():void
 		{
 			//Call user dispose implementation
 			dispose();
@@ -219,7 +223,7 @@ package potato.modules.navigation
 		 * Put every child view in its correct zIndex.
 		 * (not adding them again to keep other stuff order)
 		 */
-		protected function sortViews():void
+		potato_navigation function sortViews():void
 		{
 			if(nav.children.length == 0) return;
 			
@@ -304,7 +308,7 @@ package potato.modules.navigation
 			nav.addEventListener(NavigationEvent.TRANSITION_COMPLETE, _showComplete, false, 0, true);
 			nav.doTransition();
 		}
-		public function _showComplete(e:Event):void
+		potato_navigation function _showComplete(e:Event):void
 		{
 			nav.removeEventListener(NavigationEvent.TRANSITION_COMPLETE, _showComplete);
 			dispatchEvent(new NavigationEvent(NavigationEvent.VIEW_SHOWN, this));
@@ -319,7 +323,7 @@ package potato.modules.navigation
 			nav.addEventListener(NavigationEvent.TRANSITION_COMPLETE, _hideComplete, false, 0, true);
 			nav.hideAll();
 		}
-		public function _hideComplete(e:Event):void
+		potato_navigation function _hideComplete(e:Event):void
 		{	
 			nav.removeEventListener(NavigationEvent.TRANSITION_COMPLETE, _hideComplete);
 			dispatchEvent(new NavigationEvent(NavigationEvent.VIEW_HIDDEN, this));

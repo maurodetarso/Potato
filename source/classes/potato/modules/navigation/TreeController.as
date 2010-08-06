@@ -19,9 +19,6 @@ package potato.modules.navigation {
 	 */
     public class TreeController extends EventDispatcher
 	{
-        //TODO Performance improvement: keeps a reference to search results
-        //internal var _cachedSearchResults:Dictionary = new Dictionary(true);
-		
 		protected var _childrenConfig:Vector.<IConfig> = new Vector.<IConfig>();
 		
 		/**
@@ -90,8 +87,6 @@ package potato.modules.navigation {
 				var c:View = child.nav.findChild(id);
                 //Found
 				if(c) {
-                    //Performance stuff
-                    //_cachedSearchResults[id] = c;
                     //Return the view
                     return c;
                 }
@@ -157,17 +152,11 @@ package potato.modules.navigation {
 		
         public function get root():View
 		{
-            //TODO Performance improvement
-            //if(_cachedSearchResults["potatoRoot"]) return _cachedSearchResults["potatoRoot"];
-
 			//Go to the root of the tree
 			var topView:View = currentView;
 			while (topView.nav.parent){
 				topView = topView.nav.parent;
             }
-				
-            //TODO Performance improvement: Caching the result
-            //_cachedSearchResults["potatoRoot"] = topView;
 			return topView;
 		}
 

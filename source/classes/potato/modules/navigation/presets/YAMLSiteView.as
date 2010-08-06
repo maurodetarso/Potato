@@ -3,6 +3,9 @@ package potato.modules.navigation.presets
 	import potato.core.config.YAMLConfig;
     import potato.modules.tracking.Tracker;
 	import potato.modules.i18n.I18n;
+	
+	// Potato Navigation module namespace
+	import potato.modules.navigation.potato_navigation;
 
 	/**
 	 * Complex view preset (I18n, tracking) configured with YAML syntax.
@@ -30,7 +33,7 @@ package potato.modules.navigation.presets
             I18n.parser = YAMLConfig;
 			
 			//Boot
-			startup(new YAMLConfig(parameters.configFile));
+			potato_navigation::startup(new YAMLConfig(parameters.configFile));
 		}
 	
 	}

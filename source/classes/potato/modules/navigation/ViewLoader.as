@@ -14,6 +14,10 @@ package potato.modules.navigation
 	import potato.modules.navigation.events.NavigationEvent;
 	import potato.utils.getInstanceByName;
 
+	// Potato Navigation module namespace
+	import potato.modules.navigation.potato_navigation;
+	use namespace potato_navigation;
+	
 	/**
 	 * Loads the view and notifies progress or completion
 	 * 

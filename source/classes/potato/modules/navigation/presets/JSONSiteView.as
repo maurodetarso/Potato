@@ -3,6 +3,9 @@ package potato.modules.navigation.presets
 	import potato.core.config.JSONConfig;
     import potato.modules.tracking.Tracker;
 	import potato.modules.i18n.I18n;
+	
+	// Potato Navigation module namespace
+	import potato.modules.navigation.potato_navigation;
 
 	/**
 	 * Complex view preset (I18n, tracking) configured with JSON syntax.
@@ -30,7 +33,7 @@ package potato.modules.navigation.presets
             I18n.parser = JSONConfig;
 			
 			//Boot
-			startup(new JSONConfig(parameters.configFile));
+			potato_navigation::startup(new JSONConfig(parameters.configFile));
 		}
 	
 	}

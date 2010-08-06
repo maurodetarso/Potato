@@ -23,7 +23,6 @@ package potato.modules.navigation
 		function get zIndex():int;
 		
 		// Generic view configuration
-		function startup(value:IConfig = null):void;
 		function get config():IConfig;
 		
 		// Initialization

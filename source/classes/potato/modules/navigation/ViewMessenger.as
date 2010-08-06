@@ -17,10 +17,12 @@ package potato.modules.navigation
 	public dynamic class ViewMessenger extends Proxy
 	{
 		private var view:View;
+		
 		public function ViewMessenger(view:View)
 		{
 			this.view = view;
 		}
+		
 		override flash_proxy function getProperty(name:*):*
 		{
 			if (view.hasOwnProperty(name))
@@ -28,6 +30,7 @@ package potato.modules.navigation
 
 			return undefined
 		}
+		
 		override flash_proxy function setProperty(name:*, value:*):void
 		{
 			if (view.hasOwnProperty(name))
@@ -35,6 +38,7 @@ package potato.modules.navigation
             else
                 trace("[ViewMessenger]", view.id, "does not respond to", name);
 		}
+		
         override flash_proxy function callProperty(name:*, ... rest):*
 		{
 			if (view.hasOwnProperty(name))
@@ -42,6 +46,7 @@ package potato.modules.navigation
             else
                 trace("[ViewMessenger]", view.id, "does not respond to", name);
 		}
+		
 		override flash_proxy function hasProperty(name:*):Boolean
 		{
 			return view.hasOwnProperty(name);
