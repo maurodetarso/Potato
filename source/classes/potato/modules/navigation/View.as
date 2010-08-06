@@ -75,7 +75,7 @@ package potato.modules.navigation
 		 * This was moved from the constructor due
 		 * to synchronization issues
 		 */
-		internal final function startup(value:IConfig=null):void
+		public final function startup(value:IConfig=null):void
 		{
 			//Flag
 			_initialized = true;
@@ -174,7 +174,7 @@ package potato.modules.navigation
 		 * @private
 		 * Internal dispose
 		 */
-		internal function _dispose():void
+		public final function _dispose():void
 		{
 			//Call user implementation
 			dispose();

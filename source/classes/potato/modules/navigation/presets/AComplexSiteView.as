@@ -1,4 +1,4 @@
-package potato.modules.navigation
+package potato.modules.navigation.presets
 {
 	import potato.core.config.JSONConfig;
 	import potato.modules.parameters.Parameters;
@@ -13,7 +13,7 @@ package potato.modules.navigation
 
 	/**
 	 * The complex view includes the parameters, dependencies and localization (I18n) modules.
-	 * This base class is extended for each configuration file type (defaultExtension).
+	 * This abstract base class is extended for each configuration file type (defaultExtension).
 	 * 
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0
@@ -21,10 +21,10 @@ package potato.modules.navigation
 	 * @author Lucas Dupin, Fernando França
 	 * @since  16.06.2010
 	 */
-	public class ComplexSiteView extends View
+	public class AComplexSiteView extends View
 	{
 	
-		public function ComplexSiteView()
+		public function AComplexSiteView()
 		{
 			//Making sure these modules are included
 			Parameters;

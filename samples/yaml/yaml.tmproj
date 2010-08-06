@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>source/classes/MainView.as</string>
+	<string>public/data/main.yaml</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,14 +21,42 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>public/data/main.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>6</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>public/data/main2.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>15</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>9</integer>
+		</dict>
 		<key>source/classes/MainView.as</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>32</integer>
+				<integer>11</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>23</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -39,6 +67,8 @@
 	<key>openDocuments</key>
 	<array>
 		<string>source/classes/MainView.as</string>
+		<string>public/data/main.yaml</string>
+		<string>public/data/main2.yaml</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -63,23 +93,14 @@
 							<key>isExpanded</key>
 							<true/>
 							<key>subItems</key>
-							<dict>
-								<key>locales</key>
-								<dict>
-									<key>isExpanded</key>
-									<true/>
-									<key>subItems</key>
-									<dict>
-										<key>pt_BR</key>
-										<dict>
-											<key>isExpanded</key>
-											<true/>
-											<key>subItems</key>
-											<dict/>
-										</dict>
-									</dict>
-								</dict>
-							</dict>
+							<dict/>
+						</dict>
+						<key>js</key>
+						<dict>
+							<key>isExpanded</key>
+							<true/>
+							<key>subItems</key>
+							<dict/>
 						</dict>
 					</dict>
 				</dict>
@@ -89,14 +110,14 @@
 					<true/>
 					<key>subItems</key>
 					<dict>
-						<key>fla</key>
+						<key>classes</key>
 						<dict>
 							<key>isExpanded</key>
 							<true/>
 							<key>subItems</key>
 							<dict/>
 						</dict>
-						<key>libs</key>
+						<key>fla</key>
 						<dict>
 							<key>isExpanded</key>
 							<true/>
@@ -116,6 +137,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{-8, 4}, {1680, 1024}}</string>
+	<string>{{0, 4}, {1680, 1024}}</string>
 </dict>
 </plist>

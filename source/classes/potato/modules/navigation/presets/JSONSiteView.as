@@ -1,11 +1,11 @@
-package potato.modules.navigation
+package potato.modules.navigation.presets
 {
 	import potato.core.config.JSONConfig;
     import potato.modules.tracking.Tracker;
 	import potato.modules.i18n.I18n;
 
 	/**
-	 * Complex view (I18n, tracking) configured with JSON syntax.
+	 * Complex view preset (I18n, tracking) configured with JSON syntax.
 	 * 
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0
@@ -13,7 +13,7 @@ package potato.modules.navigation
 	 * @author Lucas Dupin, Fernando França
 	 * @since  16.06.2010
 	 */
-	public class JSONSiteView extends ComplexSiteView
+	public class JSONSiteView extends AComplexSiteView
 	{
 	
 		public function JSONSiteView()

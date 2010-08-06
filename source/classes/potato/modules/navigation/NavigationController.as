@@ -115,7 +115,8 @@ package potato.modules.navigation
 		 * a chained ViewLoader.
 		 * 
 		 * @param search String Id of the view we want to loop for
-		 * @param haystack Vector.<IConfig> list of child views
+		 * @param haystack Vector.<ICo
+		 * nfig> list of child views
 		 * @return ViewLoader chaned loader with all dependencies
 		 */
 		protected function configLooper(search:String, haystack:Vector.<IConfig>):ViewLoader

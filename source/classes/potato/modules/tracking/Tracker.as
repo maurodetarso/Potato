@@ -16,15 +16,32 @@ package potato.modules.tracking {
 	 */
     public class Tracker{
 
-        // Tracking call queue
+        /**
+         * Tracking call queue
+         */
         public var trackQueue:Array = [];
-        // Tracking function
+		
+        /**
+         * External Javascript tracking function name
+         */
         public var functionName:String = "track";
-        // Tracking configuration
+       	
+		/**
+		 * Tracking configuration
+		 * @private
+		 */
         public var config:IConfig;
-        // Flag
+        
+		/**
+		 * Flag
+		 * @private
+		 */
         private var configLoaded:Boolean;
-
+		
+		/**
+		 * Singleton instance 
+		 * @private
+		 */
         private static var _instance:Tracker;
 
 		
@@ -65,7 +82,7 @@ package potato.modules.tracking {
         }
 
        	/**
-       	 * Process next queued tracking call
+       	 * Process next queued tracking calls.
        	 */
         public function processQueue():void{
             
@@ -87,7 +104,7 @@ package potato.modules.tracking {
         }
 
         /**
-         * Load configuration file
+         * Load configuration file.
          * @private
          */
         protected function loadConfig():void

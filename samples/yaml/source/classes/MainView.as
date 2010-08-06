@@ -1,11 +1,12 @@
 package 
 {
-	import potato.modules.navigation.YAMLSiteView;
+	import potato.modules.navigation.presets.YAMLSiteView;
 	import display.RectangularSprite;
 	import potato.modules.i18n.I18n;
 	import potato.core.config.YAMLConfig;
 	import flash.events.Event;
 	import potato.modules.tracking.track;
+	import potato.utils.getInstanceByName;
 	
 	/**
 	 * Example for YAMLSiteView. (not yet finished)
@@ -30,7 +31,7 @@ package
 		{
 			super.init();
 			
-			var rs:RectangularSprite = new RectangularSprite(200, 100);
+			var rs:RectangularSprite = new RectangularSprite(200, 100, 0x0000ff);
 			rs.x = 100;
 			rs.y = 100;
 			addDisposableChild(rs);
