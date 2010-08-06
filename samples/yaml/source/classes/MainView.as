@@ -1,12 +1,9 @@
 package 
 {
 	import potato.modules.navigation.presets.YAMLSiteView;
-	import display.RectangularSprite;
-	import potato.modules.i18n.I18n;
 	import potato.core.config.YAMLConfig;
 	import flash.events.Event;
-	import potato.modules.tracking.track;
-	import potato.utils.getInstanceByName;
+	import display.RectangularSprite;
 	
 	/**
 	 * Example for YAMLSiteView. (not yet finished)

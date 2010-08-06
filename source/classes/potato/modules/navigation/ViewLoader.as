@@ -219,6 +219,7 @@ package potato.modules.navigation
 				continueFromChain();
 			}
 		}
+		
 		public function onChainLoaded(e:Event):void
 		{
 			e.target.removeEventListener(Event.COMPLETE, onChainLoaded);			
@@ -229,11 +230,13 @@ package potato.modules.navigation
 			
 			continueFromChain();
 		}
+		
 		public function continueFromChain():void
 		{
             view.nav.parent = parentView;
 			dispatchEvent(new NavigationEvent(Event.COMPLETE, view));
 		}
+		
 		public function onChainProgress(e:Event):void
 		{
 			dispatchEvent(e.clone());

@@ -30,24 +30,24 @@ package potato.modules.navigation
 	 * @author Lucas Dupin, Fernando França
 	 * @since  17.06.2010
 	 */
-	public class View extends DisposableSprite implements IDisposable, IVisible
+	public class View extends DisposableSprite implements IView
 	{
 		/**
 		 * id used for sending messages and doing navigation operations
 		 */
-		public var id:String;
+		protected var _id:String;
 		
 		/**
-		 * navigation controller,
-		 * used to change, remove, add or load views
+		 * Default order on stage
+		 * TODO managed by the navigation controller
+		 */
+		protected var _zIndex:int = 0;
+		
+		/**
+		 * Navigation controller.
+		 * Used to change, remove, add or load views.
 		 */
 		public var nav:NavigationController;
-	
-		/**
-		 * Default order on stage
-		 * TODO Getter/Setter -> managed by the navigation controller
-		 */
-		public var zIndex:int=0;
 		
 		// The following variables use a decoupled behavior
 		// (dependencies and parameters modules are not included by default)
@@ -60,29 +60,25 @@ package potato.modules.navigation
 	
 		/**
 		 * @constructor
-		 * Nothing is done here...
-		 * logic moved to <code>startup</code>
+		 * Nothing is done here, logic was moved to <code>startup</code> to prevent synchronization issues.
+		 * 
 		 * @see	startup
 		 */
-		public function View()
-		{
-			
-		}
+		public function View() {}
 		
 		/**
 		 * @param value IConfig View configuration
-		 * Prepares the view to receive interaction
-		 * This was moved from the constructor due
-		 * to synchronization issues
+		 * 
+		 * Prepares the view to receive interaction.
 		 */
 		public final function startup(value:IConfig=null):void
 		{
-			//Flag
+			// Flag
 			_initialized = true;
 			
 			_config = value || new ObjectConfig();
 			
-			//Config initialization
+			// Config initialization
 			_config.interpolationValues = parameters;
 			_config.addEventListener(Event.INIT, onConfigInit, false, 0, true);
 			_config.init();
@@ -93,27 +89,26 @@ package potato.modules.navigation
 		 * Runs after que configuration is loaded.
 		 * Responsible for setting default view behaviours: init, resize, transitions
 		 */
-		public function onConfigInit(e:Event=null):void
+		protected function onConfigInit(e:Event=null):void
 		{
-			/*
-			Initial config done
-			*/
 			_config.removeEventListener(Event.INIT, onConfigInit);
-
-			if(_config.hasProperty("id"))
-				id = _config.getProperty("id");
-			else if (!id)
-				id = getQualifiedClassName(this);
 			
+			// Initialize the id (set it to class name if not defined)
+			if(_config.hasProperty("id"))
+				_id = _config.getProperty("id");
+			else if (!_id)
+				_id = getQualifiedClassName(this);
+			
+			// Configure parameters if they have been defined
 			if(_config.hasProperty("parameters"))
 				parameters.inject(_config.configForKey("parameters"));
 			
-			//Creating the navigation controller to add, remove or change views
+			// Creating the navigation controller to add, remove or change views
 			nav = new NavigationController(_config.hasProperty("views") ? _config.getProperty("views") : null, this, parameters);
 			nav.addEventListener(NavigationEvent.ADD_VIEW, onViewReadyToAdd);
 			nav.addEventListener(NavigationEvent.REMOVE_VIEW, onViewReadyToRemove);
 			
-			//Default view behaviour
+			// Default view behaviour
 			addEventListener(Event.ADDED_TO_STAGE, _init, false, 0, true);
 			
 			//If this is the first view, it's already on stage
@@ -130,23 +125,30 @@ package potato.modules.navigation
             return nav.getViewMessenger(view);
         }
 
-        public function addView(viewOrId:Object):void{
+        public function addView(viewOrId:Object):void
+		{
             nav.root.nav.addView(viewOrId);
         }
-        public function removeView(viewOrId:Object):void{
+        
+		public function removeView(viewOrId:Object):void
+		{
             nav.root.nav.removeView(viewOrId);
         }
-        public function changeView(viewOrId:Object):void{
+        
+		public function changeView(viewOrId:Object):void
+		{
             nav.changeView(viewOrId);
         }
-        public function loaderFor(view:String):ViewLoader{
+        
+		public function loaderFor(view:String):ViewLoader
+		{
             return nav.loaderFor(view);
         }
 
 
 		/**
 		 * @private
-		 * Internal init
+		 * Internal initialization (fired after view is added to the stage).
 		 */
 		protected function _init(e:Event=null):void
 		{
@@ -158,36 +160,41 @@ package potato.modules.navigation
 			
 			//User implementation
 			init();
+			
 			//Position all stuff
 			resize();
 		}
+		
 		/**
 		 * @private
-		 * Internal resize
+		 * Internal resize, calls user implementation.
 		 */
 		protected function _resize(e:Event):void
 		{
 			if(stage)
 				resize();
 		}
+		
 		/**
 		 * @private
 		 * Internal dispose
 		 */
-		public final function _dispose():void
+		internal final function _dispose():void
 		{
-			//Call user implementation
+			//Call user dispose implementation
 			dispose();
 			
 			if(nav){
 				nav.dispose();
 				nav = null;
 			}
-			if(dependencies){
-				dependencies.dispose();
-				dependencies = null;
+			
+			if(_dependencies){
+				_dependencies.dispose();
+				_dependencies = null;
 			}
-			parameters = null;
+			
+			_parameters = null;
 		}
 		
 		/**
@@ -201,17 +208,18 @@ package potato.modules.navigation
 		/**
 		 * @private
 		 */
-		public function onViewReadyToRemove(e:NavigationEvent):void
+		protected function onViewReadyToRemove(e:NavigationEvent):void
 		{
 			if(e.view.parent == this)
 				removeChild(e.view);
 		}
 		
 		/**
-		 * Put every view in it's correct zIndex
+		 * @private
+		 * Put every child view in its correct zIndex.
 		 * (not adding them again to keep other stuff order)
 		 */
-		public function sortViews():void
+		protected function sortViews():void
 		{
 			if(nav.children.length == 0) return;
 			
@@ -225,6 +233,16 @@ package potato.modules.navigation
 				}
 				lastView = view;
 			}
+		}
+		
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function get zIndex():int
+		{
+			return _zIndex;
 		}
 		
 		public function get initialized():Boolean
@@ -244,7 +262,6 @@ package potato.modules.navigation
 		 */
 		public function get parameters():Object
 		{
-			//Initialization?
 			if(!_parameters)
 				_parameters = getInstanceByName("potato.modules.parameters.Parameters");
 			
@@ -277,20 +294,11 @@ package potato.modules.navigation
 		{
 			_dependencies = value;
 		}
-		
-	
+
 		/**
-		 * Method to override
-		 * Called after the view has been initialized and added to the stage.
-		 * At this point dependencies, parameters and stage are available to you.
-		 */
-		public function init():void {}
-	
-		/**
-		 * Method to override
-		 * Transition stuff
-		 * *********************************************************
-		 * <b>Don't forget to call super if you override this method</b>
+		 * [override] Transition implementation.
+		 * 
+		 * <b>Call super.show() if you override this method.</b>
 		 */
 		public function show():void {
 			nav.addEventListener(NavigationEvent.TRANSITION_COMPLETE, _showComplete, false, 0, true);
@@ -303,10 +311,9 @@ package potato.modules.navigation
 		}
 	
 		/**
-		 * Method to override
-		 * Transition stuff
-		 * *********************************************************
-		 * <b>Don't forget to call super if you override this method</b>
+		 * [override] Transition implementation.
+		 * 
+		 * <b>Call super.hide() if you override this method</b>
 		 */
 		public function hide():void {
 			nav.addEventListener(NavigationEvent.TRANSITION_COMPLETE, _hideComplete, false, 0, true);
@@ -319,15 +326,20 @@ package potato.modules.navigation
 		}
 	
 		/**
-		 * Method to override
-		 * Stage resize callback
+		 * [override] Stage resize callback.
+		 * The stage is available to the view at this point.
 		 */
 		public function resize():void {}
-	
+
+		/**
+		 * [override] Called after the view has been initialized and added to the stage.
+		 * At this point dependencies, parameters and stage are available to you.
+		 */
+		public function init():void {}
+		
 		/**
 		 * Dispose view and children.
-		 * *********************************************************
-		 * <b>Don't forget to call super if you override this method</b>
+		 * <b>Don't forget to call super if you override this method.</b>
 		 */
 		override public function dispose():void {
 			super.dispose();
