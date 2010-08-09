@@ -32,8 +32,10 @@ package potato.modules.navigation.presets
 			I18n;
 			
 			//Stage setup
-			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
+			if(stage){
+				stage.align = StageAlign.TOP_LEFT;
+				stage.scaleMode = StageScaleMode.NO_SCALE;
+			}
 			
             //Setting default parameters
 			parameters.defaults.basePath   = "."

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>source/classes/MainView.as</string>
+	<string>source/classes/display/RectangularSprite.as</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,9 +26,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>25</integer>
+				<integer>28</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -40,9 +40,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>15</integer>
+				<integer>3</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>29</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -52,8 +52,8 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>source/classes/MainView.as</string>
 		<string>source/classes/display/RectangularSprite.as</string>
+		<string>source/classes/MainView.as</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>

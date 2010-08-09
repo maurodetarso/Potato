@@ -14,8 +14,14 @@ source-path:
     - ../../source/libs
     
 applications:
-    - class: source/classes/MainView.as
-      output: public/MainView.swf
+    - class: source/classes/example/views/Loader.as
+      output: public/loader.swf
+    
+    - class: source/classes/example/views/Main.as
+      output: public/main.swf
+      
+    - class: source/classes/example/views/About.as
+      output: public/about.swf
 
 # asdoc:
 #     - title: "My ActionScript project"

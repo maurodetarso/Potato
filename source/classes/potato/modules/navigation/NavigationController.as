@@ -197,7 +197,8 @@ package potato.modules.navigation
                 view.startup();
 				onViewReadyToAdd(new NavigationEvent(Event.COMPLETE, view));
 
-            } else if (viewOrId is String) {
+            }
+			else if (viewOrId is String) {
 
                 //View id
                 var id:String = viewOrId + "";

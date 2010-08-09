@@ -1,31 +1,25 @@
----
-# Project tree structure
-tree:
-    - loader
-    - intro
-    - home:
-        - menu
-
-# Project views list
+# Loader
+id: loader
+parameters:
+   locale: en_US
+   basePath: .
+   servicePath: localhost
+   questionsService: "%(servicePath)s/users.json"
+   numberOfCircles: 10
 views:
-    - id: loader
-      localeFile: "%(localePath)s/copydeck.yaml"
-      parameters:
-          - servicePath: mockdata
-            basePath: .
-            userDataServicePath: "%(servicePath)s/user.json"
-            friendsServicePath: \%(servicePath)s/friends.json
-        
-    - id: intro
-      class: myproject.views.IntroView
-      dependencies:
-          - id: intro
-            url: "%(localePath)s/videos/header/logo.flv"
-          - id: introMusic
-            url: \%(localePath)s/videos/home/music.mp3
-    
-    - id: home
-      class: myproject.views.HomeView
-    
-    - id: menu
-      class: myproject.views.MenuView
+   # Main
+   - id: main
+     class: example.views.Main
+     localeFile: "%(localePath)s/copydeck.yaml" # This locale file is loaded here, all views loaded after main will have it available to them
+     dependencies:
+         - url: "%(basePath)s/main.swf"
+           domain: current
+         - id: logo                             # Free logo downloaded at: http://www.logoinstant.com/2009/01/blaqq-cat/
+           url: "%(localePath)s/logo.jpg"
+     views:
+         # About
+         - id: about
+           class: example.views.About
+           dependencies:
+               - url: "%(basePath)s/about.swf"
+                 domain: current

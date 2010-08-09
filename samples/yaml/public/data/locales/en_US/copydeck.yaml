@@ -1,0 +1,18 @@
+# This is an example I18n locale file in YAML format
+# Author: Fernando França
+# Since: 09.08.2010
+
+# In Potato, you can use the I18n helper function "_". 
+# For example, use _("title") to display the content define below.
+title: Black Cat
+
+subtitle: feline agents
+
+# Example of multiline YAML, starting with a pipe (" | ")
+# Notice this text is also HTML formatted (no CDATA tags, yay!)
+about: |
+    <p><b>Black Cat</b> is a fantastic new company founded by 
+    two cat lovers. Our objective is to promote the carreers of 
+    black cats, often misundertood by our supersticious society 
+    these animals have had a harsh time making it to <i>YouTube's</i> 
+    top 10 most watched feline videos.</p>

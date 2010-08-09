@@ -67,14 +67,15 @@ package potato.modules.navigation
 				_viewId = viewOrConfig.id;
 				trace("[ViewLoader] ", _viewId, " load start");
 				handleViewLoading(viewOrConfig as View)
-			} else if (viewOrConfig is IConfig)
+			} 
+			else if (viewOrConfig is IConfig)
 			{
 				_viewId = viewOrConfig.getProperty("id");
 				trace("[ViewLoader] ", _viewId, " load start");
 				handleConfigLoading(viewOrConfig as IConfig)
 			} else
 			{
-				throw new Error("[ViewLoader] don't know how to load " + viewOrConfig);
+				throw new Error("[ViewLoader] doesn't know how to load " + viewOrConfig);
 			}
 		}
 		
