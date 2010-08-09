@@ -4,6 +4,7 @@ import flash.events.EventDispatcher;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.events.Event;
+import flash.events.IOErrorEvent;
 import org.as3yaml.YAML;
 import potato.core.config.ObjectConfig;
 import potato.core.dsl.ConditionalParser;
@@ -46,8 +47,27 @@ public class YAMLConfig extends ObjectConfig implements IConfig
 	 */
 	override public function init():void
 	{
-		var urlLoader:URLLoader = new URLLoader(new URLRequest(_url));
+		var urlLoader:URLLoader = new URLLoader();
+		
+		try
+		{
+			urlLoader.load(new URLRequest(_url));
+		} 
+		catch (e:SecurityError)
+		{
+			trace("[YAMLConfig] Security error : " + e.errorID + " " + e.message);
+		}
+		
+		urlLoader.addEventListener(IOErrorEvent.IO_ERROR, onLoadError);
 		urlLoader.addEventListener(Event.COMPLETE, onConfigLoaded);
+	}
+	
+	protected function onLoadError(e:IOErrorEvent):void
+	{
+		e.target.removeEventListener(IOErrorEvent.IO_ERROR, onLoadError);
+		e.target.removeEventListener(Event.COMPLETE, onConfigLoaded);
+		
+		trace("[YAMLConfig] IO error:  " + e.text);
 	}
 	
 	/**
@@ -57,6 +77,7 @@ public class YAMLConfig extends ObjectConfig implements IConfig
 	protected function onConfigLoaded(e:Event):void
 	{
 		// Removing listener, so that we won't have memory leaks
+		e.target.removeEventListener(IOErrorEvent.IO_ERROR, onLoadError);
 		e.target.removeEventListener(Event.COMPLETE, onConfigLoaded);
 		
 		// Parse YAML

@@ -1,0 +1,25 @@
+---
+default:
+    - debug: false
+      open: public/index.html
+      extra: -use-network=false -static-link-runtime-shared-libraries
+    
+library-path:
+    - source/swc
+
+source-path:
+    - source/classes
+    - source/libs
+    - ../../source/classes
+    - ../../source/libs
+    
+applications:
+    - class: source/classes/MainView.as
+      output: public/MainView.swf
+
+# asdoc:
+#     - title: "My ActionScript project"
+#       footer: "My ActionScript project footer"
+#       output: docs/
+#       exclude-dirs: 
+#         - source/classes/caurina/
