@@ -1,82 +1,78 @@
 package potato.modules.dependencies
 {
-	import br.com.stimuli.loading.BulkLoader;
-	import potato.modules.dependencies.IDependencies;
 	import potato.core.config.IConfig;
+	
 	import flash.system.LoaderContext;
 	import flash.system.ApplicationDomain;
-	import br.com.stimuli.string.printf;
 	import flash.events.Event;
+	
+	import com.greensock.loading.*
 
 	/**
-	 * Default dependencies implementation
+	 * Implements IDependencies with GreenSock's LoaderMax.
+	 * 
 	 * 
 	 * @langversion ActionScript 3
 	 * @playerversion Flash 10.0.0
 	 * 
-	 * @author Lucas Dupin
-	 * @since  26.07.2010
+	 * @author Fernando França, Lucas Dupin
+	 * @since  10.08.2010
 	 */
-	public class Dependencies extends BulkLoader implements IDependencies
+	public class Dependencies implements IDependencies
 	{
-	
-		public function Dependencies(config:IConfig=null)
+		protected var _queue:LoaderMax;
+		
+		public function Dependencies(config:IConfig = null)
 		{
-			super(BulkLoader.getUniqueName());
+			LoaderMax.activate([ImageLoader, SWFLoader]);
 			
-			//Populating it
+			_queue = new LoaderMax();//{name:"mainQueue", onProgress:progressHandler, onComplete:completeHandler, onError:errorHandler});
+			
+			// Populate the loader
 			if (config)
 			{
 				var keys:Array = config.keys;
+				
 				for each (var key:String in keys)
 				{
-					//Dependency parameters: type, domain, id...
+					// Dependency item parameters (e.g. id, type, domain, etc)
 					var params:Object = {};
 					
-					//Get the id
+					// Get the id
 					if (config.hasProperty(key, "id"))
 						params.id = config.getProperty(key, "id");
-						
-					//Get the type
+					
+					// Get the type
 					if (config.hasProperty(key, "type"))
 						params.type = config.getProperty(key, "type");
-
-					//Check if we are going to user another ApplicationDomain
+					
+					// Key for choosing an ApplicationDomain (SWFLoader)
 					if (config.hasProperty(key, "domain"))
 					{
-						var lContext:LoaderContext = new LoaderContext(); 
+						var customLoaderContext:LoaderContext = new LoaderContext(); 
 						if (config.getProperty(key, "domain") == "current")
-							lContext.applicationDomain = ApplicationDomain.currentDomain;
-						params.context = lContext;
+							customLoaderContext.applicationDomain = ApplicationDomain.currentDomain;
+						params.context = customLoaderContext;
 					}
 					
-					//URL presence
+					// All a loader item really needs is an URL
 					if (!config.hasProperty(key, "url"))
 						throw new Error("[Dependencies] " + key + " has no 'url'");
-					
-					//Dep location
+					 
 					var url:String = config.getProperty(key, "url")
-						
-					//File extension
-					if(url.lastIndexOf(".") > -1)
-					{
-						var tmpSplit:Array = url.split(".");
-						var ext:String = tmpSplit[tmpSplit.length-1];
-						
-						//Videos will start paused
-						if(ext == "flv" || ext == "f4v" || params.type == "video")
-							params.pausedAtStart = true;
-					}
 					
-					addItem(url, params);
+					// Add item to queue
+					this.addItem(url, params);
 				}
 			}
 		}
 		
+		
+		
 		public function load():void
 		{
-			if(items.length > 0){
-				start();
+			if(_queue.numChildren > 0){
+				_queue.load();
 			}
 			else{
 				dispatchEvent(new Event(Event.COMPLETE));
@@ -86,14 +82,45 @@ package potato.modules.dependencies
 		
 		public function addItem(url : *, props : Object= null ):void
 		{
-			add(url, props);
+			// Create correct type of loader from the given URL.
+			var itemLoader:LoaderCore = LoaderMax.parse(url, props);
+			_queue.append(itemLoader);
 		}
 		
 		public function dispose():void
 		{
-			clear();
+			// TODO verify if flushContent == true is interfering with projects (removing DisplayObjects or not) 
+			_queue.dispose(true);
 		}
-	
+		
+		// ------------------------------------------------------
+		//   IEventDispatcher implementation through delegation
+		// ------------------------------------------------------
+		
+		public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		{
+			_queue.addEventListener(type, listener, useCapture, priority, userWeakReference);
+		}
+		
+		public function dispatchEvent(event:Event):Boolean
+		{
+			_queue.dispatchEvent(event);
+		}
+		
+		public function hasEventListener(type:String):Boolean
+		{
+			_queue.hasEventListener(type);
+		}
+		
+		public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+		{
+			removeEventListener(type, listener, useCapture);
+		}
+		
+		public function willTrigger(type:String):Boolean
+		{
+			willTrigger(type);
+		}	
 	}
 
 }

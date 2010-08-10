@@ -6,7 +6,7 @@ parameters:
    servicePath: localhost
    questionsService: "%(servicePath)s/users.json"
    numberOfCircles: 10
-views:
+views: # Loader's child views
    # Main
    - id: main
      class: example.views.Main

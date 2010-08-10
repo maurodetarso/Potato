@@ -174,7 +174,7 @@ package potato.modules.navigation
 		{
 			var dependencies:IDependencies = getInstanceByName("potato.modules.dependencies.Dependencies", config);
 			
-			if(!dependencies) throw new Error("[ViewLoader] probably potato.modules.dependencies.Dependencies was not found.");
+			if(!dependencies) throw new Error("[ViewLoader] potato.modules.dependencies.Dependencies was not found.");
 			
 			return dependencies;
 		}

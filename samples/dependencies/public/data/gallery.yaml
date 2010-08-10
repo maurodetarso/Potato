@@ -1,5 +1,6 @@
 # Illustrations by Pasquale D’Silva
 # http://wefunction.com/2008/11/free-character-pack/
+
 - id: picture1
   url: data/img/picture1.png
 
@@ -7,4 +8,4 @@
   url: data/img/picture2.png
 
 - id: picture3
-  url: data/img/picture3.png
+  url: data/img/picture3.png    
