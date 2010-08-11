@@ -7,6 +7,7 @@ package potato.modules.dependencies
 	import flash.utils.*;
 	
 	import potato.core.IDisposable;
+	import potato.core.config.IConfig;
 
 	public interface IDependencies extends IEventDispatcher, IDisposable
 	{
@@ -15,10 +16,18 @@ package potato.modules.dependencies
 		 * 
 		 * dispatches <code>Event.COMPLETE</code> when done
 		 */
-		function load():void;
+		function inject(config:IConfig):void;
 		function addItem(url:*, props:Object = null):void;
+		function load():void;
+		
+		// Related to content fetching
 		function getBitmap(key:String):Bitmap;
 		function getBitmapData(key:String):BitmapData;
+			//	
+			//function getByteArray(key:String):ByteArray;
+			//function getMovieClip(key:String):MovieClip;
+			//function getNetStream(key:String):NetStream;
+		
 		//TODO implement a nice interface here
 		//function getContent(key : String, clearMemory : Boolean = false) : *;
 		//        function getXML(key : *, clearMemory : Boolean = false) : XML;

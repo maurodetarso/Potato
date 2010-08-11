@@ -1,6 +1,6 @@
 ---
 default:
-    - debug: true
+    - debug: false
       open: public/index.html
       extra: -use-network=false -static-link-runtime-shared-libraries
     
@@ -16,12 +16,21 @@ source-path:
 applications:
     - class: source/classes/example/views/Loader.as
       output: public/loader.swf
+      report: public/loader.xml
     
     - class: source/classes/example/views/Main.as
       output: public/main.swf
+      report: public/main.xml
+      exclude:
+            - source/classes/example/views/Loader.as
       
     - class: source/classes/example/views/About.as
       output: public/about.swf
+      report: public/about.xml
+      exclude:
+          - public/loader.xml  
+          - public/main.xml
+
 
 # asdoc:
 #     - title: "My ActionScript project"

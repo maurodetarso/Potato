@@ -1,11 +1,9 @@
 package 
 {
 	import potato.modules.dependencies.*;
-	import flash.events.Event;
-	import flash.display.Sprite;
+	import flash.events.*;
+	import flash.display.*;
 	import potato.core.config.YAMLConfig;
-	import potato.modules.dependencies.Dependencies;
-	import flash.display.Bitmap;
 	
 	/**
 	 * Simple example of dependencies being used as a separate module.
@@ -26,7 +24,7 @@ package
 	public class MainView extends Sprite
 	{
 		private var _configuration:YAMLConfig;
-		private var _dependencies:Dependencies;
+		private var _dependencies:IDependencies;
 		
 		public function MainView()
 		{
@@ -59,9 +57,11 @@ package
 			for (var i:int = 1; i <= 3; i++){
 				var bitmap:Bitmap = _dependencies.getBitmap("picture"+i);
 				bitmap.x = (i - 1) * 170;
-				bitmap.y = 100;
+				bitmap.y = 101;
 				addChild(bitmap);
 			}
+			
+			//trace(_dependencies.getBitmapData("picture1"));
 		}
 	}
 }

@@ -2,11 +2,16 @@ package potato.modules.dependencies
 {
 	import potato.core.config.IConfig;
 	
-	import flash.system.LoaderContext;
-	import flash.system.ApplicationDomain;
+	import flash.display.Bitmap;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
 	
 	import com.greensock.loading.*
+	import com.greensock.loading.core.*;
+	import com.greensock.events.LoaderEvent;
+	import flash.display.BitmapData;
 
 	/**
 	 * Implements IDependencies with GreenSock's LoaderMax.
@@ -18,7 +23,7 @@ package potato.modules.dependencies
 	 * @author Fernando França, Lucas Dupin
 	 * @since  10.08.2010
 	 */
-	public class Dependencies implements IDependencies
+	public class Dependencies extends EventDispatcher implements IDependencies
 	{
 		protected var _queue:LoaderMax;
 		
@@ -26,60 +31,110 @@ package potato.modules.dependencies
 		{
 			LoaderMax.activate([ImageLoader, SWFLoader]);
 			
-			_queue = new LoaderMax();//{name:"mainQueue", onProgress:progressHandler, onComplete:completeHandler, onError:errorHandler});
+			// Create a new LoaderMax instance (an unique name is automatically assigned)
+			_queue = new LoaderMax({onProgress:onLoaderProgress, onComplete:onLoaderComplete, onError:onLoaderError});
 			
 			// Populate the loader
 			if (config)
+				inject(config);
+		}
+		
+		public function onLoaderProgress(e:LoaderEvent):void
+		{
+			
+		}
+		
+		public function onLoaderComplete(e:LoaderEvent):void
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
+		public function onLoaderError(e:LoaderEvent):void
+		{
+			trace("error");
+		}
+		
+		/**
+		 * Adds configuration items to the loading queue.
+		 * @param config IConfig 
+		 */
+		public function inject(config:IConfig):void
+		{
+			var keys:Array = config.keys;
+			
+			for each (var key:String in keys)
 			{
-				var keys:Array = config.keys;
+				// Dependency item parameters (e.g. id, type, domain, etc)
+				var params:Object = {};
 				
-				for each (var key:String in keys)
+				// Get the id
+				if (config.hasProperty(key, "id"))
+					params.name = config.getProperty(key, "id");
+				
+				// Get the type
+				if (config.hasProperty(key, "type"))
+					params.type = config.getProperty(key, "type");
+				
+				// Key for choosing an ApplicationDomain (SWFLoader)
+				if (config.hasProperty(key, "domain"))
 				{
-					// Dependency item parameters (e.g. id, type, domain, etc)
-					var params:Object = {};
-					
-					// Get the id
-					if (config.hasProperty(key, "id"))
-						params.id = config.getProperty(key, "id");
-					
-					// Get the type
-					if (config.hasProperty(key, "type"))
-						params.type = config.getProperty(key, "type");
-					
-					// Key for choosing an ApplicationDomain (SWFLoader)
-					if (config.hasProperty(key, "domain"))
-					{
-						var customLoaderContext:LoaderContext = new LoaderContext(); 
-						if (config.getProperty(key, "domain") == "current")
-							customLoaderContext.applicationDomain = ApplicationDomain.currentDomain;
-						params.context = customLoaderContext;
-					}
-					
-					// All a loader item really needs is an URL
-					if (!config.hasProperty(key, "url"))
-						throw new Error("[Dependencies] " + key + " has no 'url'");
-					 
-					var url:String = config.getProperty(key, "url")
-					
-					// Add item to queue
-					this.addItem(url, params);
+					var customLoaderContext:LoaderContext = new LoaderContext(); 
+					if (config.getProperty(key, "domain") == "current")
+						customLoaderContext.applicationDomain = ApplicationDomain.currentDomain;
+					params.context = customLoaderContext;
+				}
+				
+				// Add additional keys from config
+				mergeProperties(params, config.configForKey(key), ["id", "type", "domain", "url"]);
+				
+				// All a loader item really needs is an URL
+				if (!config.hasProperty(key, "url"))
+					throw new Error("[Dependencies] " + key + " has no 'url'");
+				 
+				var url:String = config.getProperty(key, "url")
+				
+				// Add item to queue
+				this.addItem(url, params);
+			}
+		}
+		
+		/**
+		 * Merges properties of an object and a configuration. Ignores some keys if necessary.
+		 * 
+		 * @param obj Object 
+		 * @param config IConfig 
+		 * @param ignoreKeys Array An Array containing keys to be ignored from the merge.
+		 * 
+		 * @private
+		 */
+		protected function mergeProperties(obj:Object, config:IConfig, ignoreKeys:Array):void
+		{			
+			var keys:Array = config.keys;
+			
+			for each(var ignoredKey:String in ignoreKeys)
+			{
+				var pos:int = keys.indexOf(ignoredKey);
+				if(pos != -1){
+					keys.splice(pos, 1);
+				}
+				
+			}
+			
+			for each(var key:String in keys)
+			{
+				if(!obj.hasOwnProperty(key))
+				{
+					obj[key] = config.getProperty(key);
 				}
 			}
 		}
 		
-		
-		
-		public function load():void
-		{
-			if(_queue.numChildren > 0){
-				_queue.load();
-			}
-			else{
-				dispatchEvent(new Event(Event.COMPLETE));
-			}
-				
-		}
-		
+		/**
+		 * Adds a new item to the loading queue.
+		 * 
+		 * @param url * The item's URL.
+		 * @param props Object (optional) Properties object for LoaderMax's item loader (useful!).
+		 */
 		public function addItem(url : *, props : Object= null ):void
 		{
 			// Create correct type of loader from the given URL.
@@ -87,40 +142,41 @@ package potato.modules.dependencies
 			_queue.append(itemLoader);
 		}
 		
+		/**
+		 * Starts loading the queued items.
+		 */
+		public function load():void
+		{
+			if(_queue.numChildren > 0){
+				_queue.load();
+			}
+			else{
+				dispatchEvent(new Event(Event.COMPLETE));
+			}		
+		}
+		
+		// ----------------------- Content getters -------------------------
+		
+		public function getBitmap(key:String):Bitmap
+		{
+			return _queue.getContent(key).rawContent;
+		}
+		
+		public function getBitmapData(key:String):BitmapData
+		{
+			return _queue.getContent(key).rawContent.bitmapData;
+		}
+		
+		/**
+		 * IDisposable implementation
+		 * @private
+		 */
 		public function dispose():void
 		{
 			// TODO verify if flushContent == true is interfering with projects (removing DisplayObjects or not) 
 			_queue.dispose(true);
+			_queue = null;
 		}
-		
-		// ------------------------------------------------------
-		//   IEventDispatcher implementation through delegation
-		// ------------------------------------------------------
-		
-		public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
-		{
-			_queue.addEventListener(type, listener, useCapture, priority, userWeakReference);
-		}
-		
-		public function dispatchEvent(event:Event):Boolean
-		{
-			_queue.dispatchEvent(event);
-		}
-		
-		public function hasEventListener(type:String):Boolean
-		{
-			_queue.hasEventListener(type);
-		}
-		
-		public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
-		{
-			removeEventListener(type, listener, useCapture);
-		}
-		
-		public function willTrigger(type:String):Boolean
-		{
-			willTrigger(type);
-		}	
 	}
 
 }

@@ -3,9 +3,19 @@
 
 - id: picture1
   url: data/img/picture1.png
-
+  # LoaderMax shortcuts
+  width: 100
+  height: 100
+  scaleMode: proportionalOutside
+  
 - id: picture2
-  url: data/img/picture2.png
+  url: data/img/WRONG_PATH.png
+  alternateURL: data/img/picture2.png
 
 - id: picture3
-  url: data/img/picture3.png    
+  url: data/img/picture3.png
+  width: 50
+  height: 50
+  crop: true
+  scaleMode: none
+  
