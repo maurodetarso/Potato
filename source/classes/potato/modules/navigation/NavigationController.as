@@ -34,17 +34,14 @@ package potato.modules.navigation
             super(viewsConfig, currentView, interpolationValues);
 		}
 		
-			
-        /**
+		/**
          * @param view String
          * Returns a proxy to a View
          */
-        public function getViewMessenger(view:String):ViewMessenger{
-            var v:View = root.nav.findChild(view);
-            if (v)
-                return new ViewMessenger(v);
-            else
-                return null;
+        public function getViewMessenger(view:String):ViewMessenger
+		{	
+            var v:View = (root.id == view) ? root: root.nav.findChild(view);
+            return v ? new ViewMessenger(v) : null;
         }
 		
 		/**

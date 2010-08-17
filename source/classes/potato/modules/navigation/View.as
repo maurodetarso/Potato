@@ -93,7 +93,7 @@ package potato.modules.navigation
 		 * Runs after que configuration is loaded.
 		 * Responsible for setting default view behaviours: init, resize, transitions
 		 */
-		protected function onConfigInit(e:Event=null):void
+		protected function onConfigInit(e:Event):void
 		{
 			_config.removeEventListener(Event.INIT, onConfigInit);
 			
@@ -102,6 +102,10 @@ package potato.modules.navigation
 				_id = _config.getProperty("id");
 			else if (!_id)
 				_id = getQualifiedClassName(this);
+				
+			//zIndex
+			if(_config.hasProperty("zIndex"))
+				_zIndex = _config.getProperty("zIndex");
 			
 			// Configure parameters if they have been defined
 			if(_config.hasProperty("parameters"))
@@ -225,9 +229,9 @@ package potato.modules.navigation
 		 */
 		potato_navigation function sortViews():void
 		{
-			if(nav.children.length == 0) return;
+			if(nav.children.length <= 1) return;
 			
-			//Sorting
+			// Sorting
 			var lastView:View = nav.children[0];
 			for each (var view:View in nav.children)
 			{

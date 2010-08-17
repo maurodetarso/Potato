@@ -29,7 +29,8 @@ package potato.display
 		 */
 		public function dispose():void
 		{
-			_disposableChildren.dispose();
+			if(_disposableChildren != null) 
+				_disposableChildren.dispose();
 			_disposableChildren = null
 		}
 	
