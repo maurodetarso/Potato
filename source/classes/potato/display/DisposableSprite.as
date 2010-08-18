@@ -38,29 +38,30 @@ package potato.display
 		 * Registers a disposable object.
 		 * @param obj IDisposable 
 		 */
-		public function addDisposable(obj:IDisposable):void
+		public function addDisposable(obj:IDisposable):IDisposable
 		{
 	    	_disposableChildren.addElement(obj);
+			return obj;
 	    }
 		
 		/**
 		 * Adds and registers a disposable child DisplayObject.
 		 * @param obj IDisposable 
 		 */
-	    public function addDisposableChild(obj:IDisposable):void
+	    public function addDisposableChild(obj:IDisposable):DisplayObject
 		{
 	    	_disposableChildren.addElement(obj);
-	    	addChild(obj as DisplayObject);
+	    	return addChild(obj as DisplayObject);
 	    }
 		
 		/**
 		 * Adds and registers a disposable child DisplayObject at the given index.
 		 * @param obj IDisposable
 		 */
-		public function addDisposableChildAt(obj:IDisposable, index:int):void
+		public function addDisposableChildAt(obj:IDisposable, index:int):DisplayObject
 		{
 			_disposableChildren.addElement(obj);
-	    	addChildAt(obj as DisplayObject, index);
+	    	return addChildAt(obj as DisplayObject, index);
 	    }
 		
 		/**

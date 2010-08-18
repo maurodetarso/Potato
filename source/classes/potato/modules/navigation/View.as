@@ -210,7 +210,7 @@ package potato.modules.navigation
 		 */
 		protected function onViewReadyToAdd(e:NavigationEvent):void
 		{
-			addChild(e.view);
+			addChildAt(e.view, 0);
 			sortViews();
 		}
 		/**
